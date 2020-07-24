@@ -1,53 +1,55 @@
 import React from 'react';
 import styled, { ThemeProvider } from "styled-components"
 import theme from "./theme/";
-import "./theme/baseline.css";
+import "./css/reset.css";
+import "./css/global.css";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+} from 'react-router-dom';
+import {
+  Container,
+} from "@material-ui/core";
+import Home from "views/Home.js";
+import NotFound from "views/NotFound.js";
+import Night2018 from "views/Night2018.js";
+import Museum from "views/Museum.js";
+import AppHeader from "components/AppHeader.js";
+import { StylesProvider } from "@material-ui/styles";
+import AppContext, { useAppContextInit } from "contexts/AppContext.js";
 
-const Container = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-left: 32px;
-  padding-right: 32px;
-  max-width: 1280px;
-  margin: auto;
-`
-
-const Box = styled.div`
-  display: flex;
-  flex: 1;
-  border-radius: 5px;
-  background: white;
-  height: 100vh
-  flex-direction: column;
-  white-space: pre-line;
-  padding: 5px;
-`
+const S = {};
+S.Container = styled.div`
+  background-color: ${props => props.theme.color.bg};
+  color: ${props => props.theme.color.primary};
+  min-width: 100%;
+  min-height: 100vh;
+  padding-bottom: 2em;
+`;
 
 function App() {
+  const appContextValue = useAppContextInit();
+
   return (
     <ThemeProvider theme={theme}>
-      <Container>
-        <Box>
-          <code>
-            {`
-              À l’aide de l’API github, vous devrez réaliser une datavisualisation sur les issues du repository microsoft/vscode, à partir d’une base de projet (https://github.com/Askmona/test_front) que nous vous aurons fourni.
-              Voici la consigne :
-              Vous devrez afficher un graphique ligne permettant de suivre l’évolution du nombre d’issues actives dans le temps (Bonus: Ajout de date picker permettant de visualiser les données sur une période sélectionnée). Pour ce faire vous devrez utiliser la librairie chartjs.org
-                
-              Vous aurez carte blanche sur le design du projet. Une fois terminé vous devrez héberger votre réalisation sur un repository github et nous envoyer son lien. Toute fonctionnalité supplémentaire est la bienvenue. Nous vous laissons une semaine pour nous renvoyer le test.
-                
-              PS: Voici une liste de lien pour chartjs qui vous aideront à appréhender la librairie plus rapidement :
-              https://www.chartjs.org/docs/latest/getting-started/usage.html
-              https://www.chartjs.org/docs/latest/charts/line.html
-              https://www.chartjs.org/docs/latest/axes/cartesian/time.html
-              
-              De plus vous rencontrerez surement des limitations sur l’api github, nous vous invitons à être ingénieux quant à la mise en cache des données en local.
-              Bonne chance !
-            `}
-          </code>
-        </Box>
-      </Container>
+      <StylesProvider injectFirst>
+        <AppContext.Provider value={appContextValue}>
+          <S.Container>
+            <Router>
+              <AppHeader />
+              <Container maxWidth="sm">
+                <Switch>
+                  <Route exact path="/" component={Home} />
+                  <Route path="/museum/:museumID" component={Museum} />
+                  <Route path="/night2018" component={Night2018} />
+                  <Route exact path="*" component={NotFound} />
+                </Switch>
+              </Container>
+            </Router>
+          </S.Container>
+        </AppContext.Provider>
+      </StylesProvider>
     </ThemeProvider>
   );
 }

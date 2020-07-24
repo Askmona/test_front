@@ -1,6 +1,9 @@
 export default {
   color: {
-    primary: "#2C2E7B",
-    secondary: "#E66E6E",
+    bg: "#fff",
+    important: "CC3F0C",
+    primary: "#114B5F",
+    secondary: "#456990",
+    highlight: "#00A8E8",
   }
 }

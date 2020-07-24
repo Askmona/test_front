@@ -4,9 +4,17 @@
   "private": true,
   "dependencies": {
     "@babel/runtime": "^7.6.3",
+    "@material-ui/core": "^4.11.0",
+    "@material-ui/icons": "^4.9.1",
+    "@material-ui/lab": "^4.0.0-alpha.56",
+    "axios": "^0.19.2",
+    "prop-types": "^15.7.2",
+    "query-string": "^5.1.1",
+    "ramda": "^0.27.0",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
-    "react-scripts": "3.2.0",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "^3.4.1",
     "styled-components": "^4.4.0"
   },
   "scripts": {
