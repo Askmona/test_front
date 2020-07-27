@@ -1,7 +1,6 @@
-import React from 'react';
-import styled, { ThemeProvider } from "styled-components"
-import theme from "./theme/";
-import "./theme/baseline.css";
+import React from "react";
+import styled from "styled-components";
+// import theme from "./theme";
 
 const Container = styled.div`
   display: flex;
@@ -11,7 +10,7 @@ const Container = styled.div`
   padding-right: 32px;
   max-width: 1280px;
   margin: auto;
-`
+`;
 
 const Box = styled.div`
   display: flex;
@@ -22,15 +21,15 @@ const Box = styled.div`
   flex-direction: column;
   white-space: pre-line;
   padding: 5px;
-`
+`;
 
-function App() {
+const App = () => {
   return (
-    <ThemeProvider theme={theme}>
-      <Container>
-        <Box>
-          <code>
-            {`
+    // <ThemeProvider theme={theme}>
+    <Container>
+      <Box>
+        <code>
+          {`
               À l’aide de l’API github, vous devrez réaliser une datavisualisation sur les issues du repository microsoft/vscode, à partir d’une base de projet (https://github.com/Askmona/test_front) que nous vous aurons fourni.
               Voici la consigne :
               Vous devrez afficher un graphique ligne permettant de suivre l’évolution du nombre d’issues actives dans le temps (Bonus: Ajout de date picker permettant de visualiser les données sur une période sélectionnée). Pour ce faire vous devrez utiliser la librairie chartjs.org
@@ -45,11 +44,11 @@ function App() {
               De plus vous rencontrerez surement des limitations sur l’api github, nous vous invitons à être ingénieux quant à la mise en cache des données en local.
               Bonne chance !
             `}
-          </code>
-        </Box>
-      </Container>
-    </ThemeProvider>
+        </code>
+      </Box>
+    </Container>
+    // </ThemeProvider>
   );
-}
+};
 
 export default App;
