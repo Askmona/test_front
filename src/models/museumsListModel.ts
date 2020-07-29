@@ -29,15 +29,19 @@ interface Geometry {
 }
 
 export interface Record {
-  datasetid: string;
-  recordid: string;
+  id: string;
   fields: Fields;
-  geometry: Geometry;
-  record_timestamp: Date;
+  timestamp: Date;
+  size: number;
 }
 
-export default interface IMuseumsList {
-  nhits: number;
-  parameters: Parameters;
-  records: Record[];
+export interface IMuseum {
+  links: {}[];
+  record: Record;
+}
+
+export interface IMuseumsList {
+  total_count: number;
+  links: {}[];
+  records: IMuseum[];
 }

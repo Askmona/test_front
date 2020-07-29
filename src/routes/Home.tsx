@@ -5,8 +5,8 @@ import { Pagination } from "@material-ui/lab";
 import ClearIcon from "@material-ui/icons/Clear";
 
 import MuseumsList from "../components/MuseumsList";
-import IMuseumsList from "../models/museumsListModel";
-import { fetchMuseumList } from "../api";
+import { IMuseumsList } from "../models/museumsListModel";
+import { fetchMuseumsList } from "../api";
 import theme from "../theme";
 
 const MainContainer = styled(Container)`
@@ -49,7 +49,9 @@ const Home: FunctionComponent = (): JSX.Element => {
   useEffect(() => {});
 
   useEffect(() => {
-    fetchMuseumList(query, page).then((museums) => setMuseumList(museums));
+    fetchMuseumsList(query, page).then((museums: IMuseumsList) =>
+      setMuseumList(museums)
+    );
   }, [page, query]);
 
   const handlePageChange = (
@@ -108,7 +110,7 @@ const Home: FunctionComponent = (): JSX.Element => {
         </SearchSection>
         <MuseumsList list={museumsList} />
         <Pagination
-          count={museumsList ? Math.ceil(museumsList.nhits / 10) : 0}
+          count={museumsList ? Math.ceil(museumsList.total_count / 10) : 0}
           page={page}
           onChange={handlePageChange}
         />
