@@ -5,9 +5,7 @@ export const fetchMuseumList = async (query: string, page: number) => {
     result = await fetch(
       `https://data.culture.gouv.fr/api/records/1.0/search/?dataset=liste-et-localisation-des-musees-de-france&q=${query}&start=${start}`
     );
-    const json = await result.json();
-    console.log(json);
-    return json;
+    return await result.json();
   } catch (err) {
     console.log(err);
   }

@@ -1,19 +1,13 @@
 import React, { useEffect, useState, FunctionComponent } from "react";
 import styled from "styled-components";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import {
-  Container,
-  Box,
-  TextField,
-  //   Button,
-  InputAdornment,
-} from "@material-ui/core";
+import { Container, Box, TextField, InputAdornment } from "@material-ui/core";
 import { Pagination } from "@material-ui/lab";
 import ClearIcon from "@material-ui/icons/Clear";
 
 import MuseumsList from "../components/MuseumsList";
 import IMuseumsList from "../models/museumsListModel";
 import { fetchMuseumList } from "../api";
+import theme from "../theme";
 
 const MainContainer = styled(Container)`
   background: white;
@@ -29,6 +23,7 @@ const ListBox = styled(Box)`
 `;
 
 const Title = styled.h1`
+  color: ${theme.color.primary};
   text-align: center;
 `;
 
@@ -36,10 +31,6 @@ const SearchSection = styled.div`
   display: flex;
   flex-wrap: wrap;
 `;
-
-// const SearchButton = styled(Button)`
-//   margin: 16px;
-// `;
 
 const ClearButton = styled(InputAdornment)`
   :hover {
@@ -75,8 +66,6 @@ const Home: FunctionComponent = (): JSX.Element => {
     event.target.value === "" && query !== "" && resetResults();
   };
 
-  //   const handleSearchButtonClick = () => search();
-
   const handleSearchEnterKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) =>
     e.key === "Enter" && search();
 
@@ -96,45 +85,35 @@ const Home: FunctionComponent = (): JSX.Element => {
   };
 
   return (
-    <>
-      <CssBaseline />
-      <MainContainer>
-        <ListBox>
-          <Title>Liste des musées de France</Title>
-          <SearchSection>
-            <Search
-              type="search"
-              placeholder="Rechercher une ville"
-              variant="outlined"
-              onChange={handleSearchFieldChange}
-              onKeyPress={handleSearchEnterKeyDown}
-              InputProps={{
-                endAdornment: searchValue !== "" && searchValue != null && (
-                  <ClearButton position="end" onClick={handleClearIconClick}>
-                    <ClearIcon />
-                  </ClearButton>
-                ),
-              }}
-              value={searchValue}
-              fullWidth
-            />
-            {/* <SearchButton
-              variant="contained"
-              color="primary"
-              onClick={handleSearchButtonClick}
-            >
-              Rechercher
-            </SearchButton> */}
-          </SearchSection>
-          <MuseumsList list={museumsList} />
-          <Pagination
-            count={museumsList ? Math.ceil(museumsList.nhits / 10) : 0}
-            page={page}
-            onChange={handlePageChange}
+    <MainContainer>
+      <ListBox>
+        <Title>Liste des musées de France</Title>
+        <SearchSection>
+          <Search
+            type="search"
+            placeholder="Rechercher une ville"
+            variant="outlined"
+            onChange={handleSearchFieldChange}
+            onKeyPress={handleSearchEnterKeyDown}
+            InputProps={{
+              endAdornment: searchValue !== "" && searchValue != null && (
+                <ClearButton position="end" onClick={handleClearIconClick}>
+                  <ClearIcon />
+                </ClearButton>
+              ),
+            }}
+            value={searchValue}
+            fullWidth
           />
-        </ListBox>
-      </MainContainer>
-    </>
+        </SearchSection>
+        <MuseumsList list={museumsList} />
+        <Pagination
+          count={museumsList ? Math.ceil(museumsList.nhits / 10) : 0}
+          page={page}
+          onChange={handlePageChange}
+        />
+      </ListBox>
+    </MainContainer>
   );
 };
 

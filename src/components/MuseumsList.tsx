@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from "react";
 import { useHistory } from "react-router-dom";
-import { List, ListItem, ListItemText } from "@material-ui/core";
+import { List, ListItem, ListItemText, Paper } from "@material-ui/core";
 
 import IMuseumsList, { Record } from "../models/museumsListModel";
 
@@ -17,18 +17,20 @@ const MuseumsList: FunctionComponent<IProps> = ({ list }) => {
 
   return (
     <List>
-      {list?.records.map((element) => (
-        <ListItem
-          key={element.recordid}
-          button
-          onClick={() => handleItemClick(element)}
-        >
-          <ListItemText
-            primary={element.fields.nom_du_musee}
-            secondary={element.fields.ville}
-          />
-        </ListItem>
-      ))}
+      <Paper>
+        {list?.records.map((element) => (
+          <ListItem
+            key={element.recordid}
+            button
+            onClick={() => handleItemClick(element)}
+          >
+            <ListItemText
+              primary={element.fields.nom_du_musee}
+              secondary={element.fields.ville}
+            />
+          </ListItem>
+        ))}
+      </Paper>
     </List>
   );
 };
