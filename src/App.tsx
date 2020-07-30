@@ -1,8 +1,10 @@
 import React from 'react';
 import styled, { ThemeProvider } from "styled-components"
 import theme from "./theme";
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import "./theme/baseline.css";
 import { MuseumList } from './components/museum-list';
+import { MuseumDetails } from './components/museum-details';
 
 const Container = styled.div`
   display: flex;
@@ -26,13 +28,23 @@ const Box = styled.div`
 
 function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <Container>
-        <Box>
-          <MuseumList />
-        </Box>
-      </Container>
-    </ThemeProvider>
+    <Router>
+
+      <ThemeProvider theme={theme}>
+        <Container>
+          <Box>
+            <Switch>
+              <Route path='/museum/:refMusee'>
+                <MuseumDetails />
+              </Route>
+              <Route path='/'>
+                <MuseumList />
+              </Route>
+            </Switch>
+          </Box>
+        </Container>
+      </ThemeProvider>
+    </Router>
   );
 }
 
