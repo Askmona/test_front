@@ -19,7 +19,6 @@ const Box = styled.div`
   flex: 1;
   border-radius: 5px;
   background: white;
-  height: 100vh
   flex-direction: column;
   white-space: pre-line;
   padding: 5px;
