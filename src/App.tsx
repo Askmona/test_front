@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import "./theme/baseline.css";
 import { MuseumList } from './components/museum-list';
 import { MuseumDetails } from './components/museum-details';
+import { MuseumNight } from './components/museum-night';
 
 const Container = styled.div`
   display: flex;
@@ -36,6 +37,9 @@ function App() {
             <Switch>
               <Route path='/museum/:refMusee'>
                 <MuseumDetails />
+              </Route>
+              <Route path='/museum_night'>
+                <MuseumNight />
               </Route>
               <Route path='/'>
                 <MuseumList />
