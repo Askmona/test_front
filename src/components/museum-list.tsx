@@ -2,21 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Museum } from '../interfaces/museum';
 import { MuseumAPI } from '../api/museum-api'
 import { Link } from 'react-router-dom';
+import { StyledOl } from './styled-ol'
+import { StyledLi } from './styled-li'
 import styled from 'styled-components';
-const MuseumLi = styled.li`
-    background-color : white;
-    :not(:last-child){
-        border-bottom : 1px solid ${props => props.theme.color.lightGray};
-    }
-    margin-top: 13px;
-`
-const MuseumOl = styled.ol`
-    list-style-type : none;
-    padding: 20px;
-    border: 1px solid ${props => props.theme.color.lightGray};
-    margin: 20px;
-    font-family: "Poppins", sans-serif;
-`
 
 const MuseumLink = styled(Link)`
     text-decoration: none;
@@ -71,7 +59,7 @@ export const MuseumList: React.FC = () => {
         document.title = "Musées de France"
     }, [])
 
-    // Loads total museum on mount to initialize pagination
+    // Loads museum count on mount to initialize pagination
     const [totalMuseum, setTotalMuseum] = useState(0);
     useEffect(() => {
         const subscription = MuseumAPI.museumCount().subscribe(setTotalMuseum)
@@ -90,16 +78,16 @@ export const MuseumList: React.FC = () => {
     return (
         <div>
 
-            <MuseumOl>
+            <StyledOl>
                 {museums.map(m => (
-                    <MuseumLi key={m.ref_musee}>
+                    <StyledLi key={m.ref_musee}>
                         <MuseumLink to={`/museum/${m.ref_musee}`}>
                             {m.nom_du_musee}
                         </MuseumLink>
                         <CitySubtitle>{m.ville.toLocaleLowerCase()}</CitySubtitle>
-                    </MuseumLi>
+                    </StyledLi>
                 ))}
-            </MuseumOl>
+            </StyledOl>
             <PageOl>
                 {generatePages(page, totalMuseum).map((p, i) =>
                     <li key={p + i}>
