@@ -16,6 +16,7 @@ const Container = styled.div`
   padding-right: 32px;
   max-width: 1280px;
   margin: auto;
+  color: ${props => props.theme.color.textColor};
 `
 
 const Box = styled.div`
@@ -25,7 +26,7 @@ const Box = styled.div`
   background: white;
   flex-direction: column;
   white-space: pre-line;
-  padding: 5px;
+  padding: 25px;
 `
 
 function App() {

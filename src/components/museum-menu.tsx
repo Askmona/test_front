@@ -5,14 +5,10 @@ export const MuseumMenu: React.FC = () => {
     return (
         <nav>
             <Link to="/">
-                <a key="/">
-                    Musées de France
-                </a>
+                Musées de France
             </Link>
             <Link to="/museum_night">
-                <a key="/museum_night">
-                    Nuit des musées 2018
-            </a>
+                Nuit des musées 2018
             </Link>
         </nav>
 

@@ -13,14 +13,27 @@ interface GeographicRepartitionRaw {
     }[]
 }
 export class MuseumAPI {
-    public static getMuseums(): Observable<Museum[]> {
-        return ajax.getJSON<Museum[]>(`${apiPath}/liste-et-localisation-des-musees-de-france/exports/json?select=ville,nom_du_musee,ref_musee`)
+    public static getMuseums(limit = 20, offset = 0): Observable<Museum[]> {
+        return ajax.getJSON<Museum[]>(`${apiPath}/liste-et-localisation-des-musees-de-france/exports/json?select=ville,nom_du_musee,ref_musee&rows=${limit}&start=${offset}`)
     }
 
     public static getMuseum(ref: string): Observable<Museum> {
         return ajax.getJSON<Museum[]>(`${apiPath}/liste-et-localisation-des-musees-de-france/exports/json?where=ref_musee%3D${ref}`).pipe(
             map(museums => museums[0])
         )
+    }
+
+    public static museumCount(): Observable<number> {
+        type ServerResult = {
+            aggregations: {
+                count: number
+            }[]
+        }
+        return ajax.getJSON<ServerResult>(`${apiPath}/liste-et-localisation-des-musees-de-france/aggregates?select=count(*) as count`).pipe(
+            map(res => res.aggregations[0].count)
+        )
+
+
     }
 
     public static getNightEventCountByCity(): Observable<CountByLocation[]> {

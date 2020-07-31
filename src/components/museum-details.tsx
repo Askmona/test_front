@@ -2,13 +2,28 @@ import React, { useState, useEffect } from 'react'
 import { Museum } from '../interfaces/museum'
 import { useParams } from 'react-router'
 import { MuseumAPI } from '../api/museum-api'
+import { catchError } from 'rxjs/operators'
+import { of } from 'rxjs'
 export const MuseumDetails: React.FC = () => {
     const [museum, setMuseum] = useState<Museum>(undefined)
+    const [networkError, setNetworkError] = useState<boolean>(false)
     const { refMusee } = useParams();
 
     useEffect(() => {
-        MuseumAPI.getMuseum(refMusee).subscribe(m => setMuseum(m))
+        MuseumAPI.getMuseum(refMusee).pipe(
+            catchError(e => {
+                console.error(e);
+                setNetworkError(true);
+                return of(undefined);
+            })
+        ).subscribe(m => setMuseum(m))
     }, [refMusee])
+
+    useEffect(() => {
+        if (museum) {
+            document.title = museum.nom_du_musee
+        }
+    }, [museum])
 
     return museum ? (
         <section>
@@ -73,5 +88,6 @@ export const MuseumDetails: React.FC = () => {
         </section>
 
     )
-        : <p>Loading...</p>
+        : networkError ? <p>Erreur : impossible de charger les informations du musée</p> :
+            <p>Chargement...</p>
 }
