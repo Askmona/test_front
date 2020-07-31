@@ -3,12 +3,12 @@ import { Museum } from '../interfaces/museum'
 import { useParams } from 'react-router'
 import { MuseumAPI } from '../api/museum-api'
 export const MuseumDetails: React.FC = () => {
-    const [museum, setMuseum] = useState<Museum | undefined>(undefined)
+    const [museum, setMuseum] = useState<Museum>(undefined)
     const { refMusee } = useParams();
 
     useEffect(() => {
         MuseumAPI.getMuseum(refMusee).subscribe(m => setMuseum(m))
-    }, [])
+    }, [refMusee])
 
     return museum ? (
         <section>

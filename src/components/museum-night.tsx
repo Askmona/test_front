@@ -1,22 +1,28 @@
-import React, { RefObject, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { MuseumAPI } from '../api/museum-api';
 import { GeographicRepartition } from './geographic-repartition'
-import { CountByLocation } from '../interfaces/count-in-location';
+import { CountByLocation } from '../interfaces/count-by-location';
+
 export const MuseumNight: React.FC = () => {
     const [eventCountByCity, setEventCountByCity] = useState<CountByLocation[]>([])
     const [eventCountByDepartment, setEventCountByDepartment] = useState<CountByLocation[]>([])
     const [eventCountByRegion, setEventCountByRegion] = useState<CountByLocation[]>([])
 
     useEffect(() => {
-        MuseumAPI.getNightEventCountByCity().subscribe(res => {
+        const citySubscription = MuseumAPI.getNightEventCountByCity().subscribe(res => {
             setEventCountByCity(res)
         })
-        MuseumAPI.getNightEventCountByDepartment().subscribe(res => {
+        const departmentSubscription = MuseumAPI.getNightEventCountByDepartment().subscribe(res => {
             setEventCountByDepartment(res)
         })
-        MuseumAPI.getNightEventCountByRegion().subscribe(res => {
+        const regionSubscription = MuseumAPI.getNightEventCountByRegion().subscribe(res => {
             setEventCountByRegion(res)
         })
+        return () => {
+            citySubscription.unsubscribe();
+            departmentSubscription.unsubscribe();
+            regionSubscription.unsubscribe();
+        }
     }, [])
 
     return (

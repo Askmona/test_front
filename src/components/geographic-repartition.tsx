@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Chart from 'chart.js';
-import { CountByLocation } from '../interfaces/count-in-location'
+import { CountByLocation } from '../interfaces/count-by-location'
 interface Props {
     eventCountByLocation: CountByLocation[]
     limit?: number
@@ -29,7 +29,7 @@ export const GeographicRepartition: React.FC<Props> = (props: Props) => {
     return (
         <div>
 
-            <canvas width="300" height="300" ref={canvasRef}></canvas>
+            <canvas width="600" height="300" ref={canvasRef}></canvas>
             {
                 !!undisplayedValues.length && (
                     <div>
@@ -52,7 +52,6 @@ export const GeographicRepartition: React.FC<Props> = (props: Props) => {
 
 
 function initChart(canvasElement: HTMLCanvasElement, eventCount: CountByLocation[]) {
-    console.log('displaying', eventCount)
     new Chart(canvasElement.getContext('2d'), {
         type: 'bar',
         data: {

@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs'
 import { map } from 'rxjs/operators'
 import { ajax } from 'rxjs/ajax'
-import { CountByLocation } from '../interfaces/count-in-location'
+import { CountByLocation } from '../interfaces/count-by-location'
 import { Museum } from '../interfaces/museum'
 const apiPath = 'https://data.culture.gouv.fr/api/v2/catalog/datasets'
 interface GeographicRepartitionRaw {
