@@ -2,7 +2,6 @@ import React from 'react';
 import styled, { ThemeProvider } from "styled-components"
 import theme from "./theme";
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import 'antd/dist/antd.css';
 import "./theme/baseline.css";
 import { MuseumList } from './components/museum-list';
 import { MuseumDetails } from './components/museum-details';
@@ -32,7 +31,6 @@ const Box = styled.div`
 function App() {
   return (
     <Router>
-
       <ThemeProvider theme={theme}>
         <Container>
           <Box>

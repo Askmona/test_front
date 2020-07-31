@@ -1,21 +1,20 @@
 import React from 'react'
-import { Menu } from 'antd';
 import { Link, useLocation } from 'react-router-dom'
 export const MuseumMenu: React.FC = () => {
-    let location = useLocation();
+    const location = useLocation();
     return (
-        <Menu mode="horizontal" selectedKeys={[location.pathname]}>
-            <Menu.Item key="/">
-                <Link to="/">
+        <nav>
+            <Link to="/">
+                <a key="/">
                     Musées de France
-        </Link>
-            </Menu.Item>
-            <Menu.Item key="/museum_night">
-                <Link to="/museum_night">
+                </a>
+            </Link>
+            <Link to="/museum_night">
+                <a key="/museum_night">
                     Nuit des musées 2018
-        </Link>
-            </Menu.Item>
-        </Menu>
+            </a>
+            </Link>
+        </nav>
 
     )
 }
