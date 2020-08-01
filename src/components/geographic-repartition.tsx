@@ -87,12 +87,22 @@ function initChart(canvasElement: HTMLCanvasElement, eventCount: CountByLocation
             ]
         },
         options: {
+            responsive: true,
             scales: {
                 yAxes: [{
+                    gridLines: {
+                        lineWidth: 0
+                    },
                     ticks: {
                         beginAtZero: true
                     }
+                }],
+                xAxes: [{
+                    gridLines: {
+                        lineWidth: 0
+                    }
                 }]
+
             },
         }
     })

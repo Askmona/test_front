@@ -4,6 +4,7 @@ import { useParams } from 'react-router'
 import { MuseumAPI } from '../api/museum-api'
 import { catchError } from 'rxjs/operators'
 import { of } from 'rxjs'
+import { MuseumAttendance } from './museum-attendance'
 export const MuseumDetails: React.FC = () => {
     const [museum, setMuseum] = useState<Museum>(undefined)
     const [networkError, setNetworkError] = useState<boolean>(false)
@@ -85,6 +86,8 @@ export const MuseumDetails: React.FC = () => {
                     Appellation retirée par le haut conseil le {museum.date_retrait_appellation_par_haut_conseil}
                 </li>
             </ul>
+            <h2>Fréquentation du musée</h2>
+            <MuseumAttendance museumReference={museum.ref_musee} />
         </section>
 
     )

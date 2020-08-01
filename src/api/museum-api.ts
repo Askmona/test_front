@@ -2,6 +2,7 @@ import { Observable } from 'rxjs'
 import { map } from 'rxjs/operators'
 import { ajax } from 'rxjs/ajax'
 import { CountByLocation } from '../interfaces/count-by-location'
+import { MuseumAttendanceRecord } from '../interfaces/museum-attendance-record'
 import { Museum } from '../interfaces/museum'
 const apiPath = 'https://data.culture.gouv.fr/api/v2/catalog/datasets'
 interface GeographicRepartitionRaw {
@@ -61,6 +62,13 @@ export class MuseumAPI {
             map(result => result.aggregations.map(row =>
                 ({ location: row.departement, count: +row.count })
             ))
+        )
+    }
+
+    public static getMuseumAttendance(ref: string): Observable<MuseumAttendanceRecord[]> {
+
+        return ajax.getJSON<MuseumAttendanceRecord[]>(
+            `${apiPath}/frequentation-des-musees-de-france/exports/json?select=annee,payant,gratuit,total&where=ref_musee%3D${ref}&sort=annee`
         )
     }
 }
