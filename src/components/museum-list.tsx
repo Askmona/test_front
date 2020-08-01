@@ -5,6 +5,90 @@ import { Link } from 'react-router-dom';
 import { StyledOl } from './styled-ol'
 import { StyledLi } from './styled-li'
 import styled from 'styled-components';
+import { StyledButton } from './styled-button'
+
+
+
+const museumPerPage = 5;
+
+export const MuseumList: React.FC = () => {
+
+    useEffect(() => {
+        document.title = "Musées de France"
+    }, [])
+
+    const [typedSearchPattern, setsearchPattern] = useState(''); // pattern in input
+    const [submittedSearchPattern, setSubmittedSearchPattern] = useState(''); // effective pattern, updated when the form is submitted
+
+    // Loading museums depending on the page
+    const [museums, setMuseums] = useState<Museum[]>([]);
+    const [page, setPage] = useState<number>(1)
+    useEffect(() => {
+        const subscription = MuseumAPI.getMuseums(museumPerPage, museumPerPage * (page - 1), submittedSearchPattern).subscribe(museums => setMuseums(museums))
+        return () => subscription.unsubscribe()
+    }, [page, submittedSearchPattern])
+
+    // Loads museum count on mount to initialize pagination
+    const [totalMuseum, setTotalMuseum] = useState(0);
+    useEffect(() => {
+        const subscription = MuseumAPI.museumCount(typedSearchPattern).subscribe(setTotalMuseum)
+        return () => subscription.unsubscribe()
+    }, [submittedSearchPattern])
+
+
+
+    return (
+        <div>
+            <SearchForm onSubmit={e => { e.preventDefault(); setSubmittedSearchPattern(typedSearchPattern) }}>
+                <SearchInput placeholder="" type="text" name="search_pattern" onChange={e => setsearchPattern(e.target.value)} />
+                <StyledButton type="submit">Rechercher</StyledButton>
+            </SearchForm>
+            <StyledOl>
+                {museums.map(m => (
+                    <StyledLi key={m.ref_musee}>
+                        <MuseumLink to={`/museum/${m.ref_musee}`}>
+                            {m.nom_du_musee}
+                        </MuseumLink>
+                        <CitySubtitle>{m.ville.toLocaleLowerCase()}</CitySubtitle>
+                    </StyledLi>
+                ))}
+            </StyledOl>
+            <PaginationOl>
+                {generatePages(page, totalMuseum).map((p, i) =>
+                    <li key={p + i}>
+                        {
+                            p === '...' ?
+                                <PageButton disabled>...</PageButton>
+                                :
+                                <PageButton active={+p === page} onClick={() => setPage(+p)}>{p}</PageButton>
+
+                        }
+                    </li>
+                )}
+            </PaginationOl>
+        </div>
+    )
+}
+
+/**
+ * Generates a sequence of strings for the pagination toolbar
+ * The sequence can be like [1 , 2 , 3 , ... , 132 , 133] or [1 , ... , 12 , 13 , 14 , ... , 133] depending on what the current page is
+ * @param currentPage 
+ * @param total The size of the list to display
+ */
+const generatePages = (currentPage: number, total: number): string[] => {
+    const nbPage = Math.ceil(total / museumPerPage);
+    const rangeStr = (start: number, end: number) => Array(end + 1 - start).fill(0).map((_, i) => '' + (i + start))
+    if (nbPage <= 10) {
+        return rangeStr(1, nbPage);
+    }
+    if (nbPage > 10 && currentPage > 3 && currentPage < nbPage - 3) {
+        return ['1', '...', ...rangeStr(currentPage - 2, currentPage + 2), '...', '' + nbPage]
+    } else {
+        return [...rangeStr(1, 4), '...', ...rangeStr(nbPage - 4, nbPage)]
+    }
+}
+
 
 const MuseumLink = styled(Link)`
     text-decoration: none;
@@ -23,7 +107,7 @@ const CitySubtitle = styled.p`
     text-transform: capitalize;
     margin-top: 10px;
 `
-const PageOl = styled.ol`
+const PaginationOl = styled.ol`
     list-style-type: none;
     float: right;
     > li {
@@ -49,77 +133,15 @@ const PageButton = styled.button<{ active?: boolean }>`
 
     transition: color .2s;
     transition: border-color .2s;
-
 `
-const museumPerPage = 5;
 
-export const MuseumList: React.FC = () => {
+const SearchInput = styled.input`
+    margin-right: 20px;
+    height: 30px;
+`
 
-    useEffect(() => {
-        document.title = "Musées de France"
-    }, [])
-
-    // Loads museum count on mount to initialize pagination
-    const [totalMuseum, setTotalMuseum] = useState(0);
-    useEffect(() => {
-        const subscription = MuseumAPI.museumCount().subscribe(setTotalMuseum)
-        return () => subscription.unsubscribe()
-    }, [])
-
-
-    // Loading museums depending on the page
-    const [museums, setMuseums] = useState<Museum[]>([]);
-    const [page, setPage] = useState<number>(1)
-    useEffect(() => {
-        const subscription = MuseumAPI.getMuseums(museumPerPage, museumPerPage * (page - 1)).subscribe(museums => setMuseums(museums))
-        return () => subscription.unsubscribe()
-    }, [page])
-
-    return (
-        <div>
-
-            <StyledOl>
-                {museums.map(m => (
-                    <StyledLi key={m.ref_musee}>
-                        <MuseumLink to={`/museum/${m.ref_musee}`}>
-                            {m.nom_du_musee}
-                        </MuseumLink>
-                        <CitySubtitle>{m.ville.toLocaleLowerCase()}</CitySubtitle>
-                    </StyledLi>
-                ))}
-            </StyledOl>
-            <PageOl>
-                {generatePages(page, totalMuseum).map((p, i) =>
-                    <li key={p + i}>
-                        {
-                            p === '...' ?
-                                <PageButton disabled>...</PageButton>
-                                :
-                                <PageButton active={+p === page} onClick={() => setPage(+p)}>{p}</PageButton>
-
-                        }
-                    </li>
-                )}
-            </PageOl>
-        </div>
-    )
-}
-
-/**
- * Generates a sequence of strings for the pagination toolbar
- * The sequence can be like [1 , 2 , 3 , ... , 132 , 133] or [1 , ... , 12 , 13 , 14 , ... , 133] depending on what the current page is
- * @param currentPage 
- * @param total The size of the list to display
- */
-const generatePages = (currentPage: number, total: number): string[] => {
-    const nbPage = Math.ceil(total / museumPerPage);
-    const rangeStr = (start: number, end: number) => Array(end + 1 - start).fill(0).map((_, i) => '' + (i + start))
-    if (nbPage <= 10) {
-        return rangeStr(1, nbPage);
-    }
-    if (nbPage > 10 && currentPage > 3 && currentPage < nbPage - 3) {
-        return ['1', '...', ...rangeStr(currentPage - 2, currentPage + 2), '...', '' + nbPage]
-    } else {
-        return [...rangeStr(1, 4), '...', ...rangeStr(nbPage - 4, nbPage)]
-    }
-}
+const SearchForm = styled.form`
+    margin: 20px 5px;
+    display: flex;
+    justify-content: flex-end;
+`

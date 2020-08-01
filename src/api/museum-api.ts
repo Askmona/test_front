@@ -1,5 +1,5 @@
-import { Observable } from 'rxjs'
-import { map } from 'rxjs/operators'
+import { Observable, of } from 'rxjs'
+import { map, catchError } from 'rxjs/operators'
 import { ajax } from 'rxjs/ajax'
 import { CountByLocation } from '../interfaces/count-by-location'
 import { MuseumAttendanceRecord } from '../interfaces/museum-attendance-record'
@@ -14,8 +14,9 @@ interface GeographicRepartitionRaw {
     }[]
 }
 export class MuseumAPI {
-    public static getMuseums(limit = 20, offset = 0): Observable<Museum[]> {
-        return ajax.getJSON<Museum[]>(`${apiPath}/liste-et-localisation-des-musees-de-france/exports/json?select=ville,nom_du_musee,ref_musee&rows=${limit}&start=${offset}`)
+    public static getMuseums(limit: number, offset: number, searchPattern = ''): Observable<Museum[]> {
+        return ajax.getJSON<Museum[]>(
+            `${apiPath}/liste-et-localisation-des-musees-de-france/exports/json?select=ville,nom_du_musee,ref_musee&rows=${limit}&start=${offset}&search=${searchPattern}`)
     }
 
     public static getMuseum(ref: string): Observable<Museum> {
@@ -24,17 +25,15 @@ export class MuseumAPI {
         )
     }
 
-    public static museumCount(): Observable<number> {
-        type ServerResult = {
-            aggregations: {
-                count: number
-            }[]
-        }
-        return ajax.getJSON<ServerResult>(`${apiPath}/liste-et-localisation-des-musees-de-france/aggregates?select=count(*) as count`).pipe(
-            map(res => res.aggregations[0].count)
+    public static museumCount(searchPattern = ''): Observable<number> {
+        // Aggregate function of API was used initially, but it could not provide a search/filter function
+        return ajax.getJSON<{ count: number }[]>(`${apiPath}/liste-et-localisation-des-musees-de-france/exports/json?select=count(*) as count&search=${searchPattern}`).pipe(
+            map(res => res.length ? res[0].count : 0),
+            catchError(error => {
+                console.error(error);
+                return of(0)
+            })
         )
-
-
     }
 
     public static getNightEventCountByCity(): Observable<CountByLocation[]> {
@@ -66,7 +65,6 @@ export class MuseumAPI {
     }
 
     public static getMuseumAttendance(ref: string): Observable<MuseumAttendanceRecord[]> {
-
         return ajax.getJSON<MuseumAttendanceRecord[]>(
             `${apiPath}/frequentation-des-musees-de-france/exports/json?select=annee,payant,gratuit,total&where=ref_musee%3D${ref}&sort=annee`
         )
