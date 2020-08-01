@@ -5,6 +5,7 @@ import { MuseumAPI } from '../api/museum-api'
 import { catchError } from 'rxjs/operators'
 import { of } from 'rxjs'
 import { MuseumAttendance } from './museum-attendance'
+import { MuseumMenu } from './museum-menu'
 export const MuseumDetails: React.FC = () => {
     const [museum, setMuseum] = useState<Museum>(undefined)
     const [networkError, setNetworkError] = useState<boolean>(false)
@@ -53,39 +54,90 @@ export const MuseumDetails: React.FC = () => {
                     </li>
                 }
             </ul>
-            <h2>Coordonnées</h2>
-            <ul>
-                <li>
-                    Site web : {museum.sitweb}
-                </li>
-                <li>
-                    Téléphone : {museum.telephone1}
-                </li>
-                <li>
-                    Fax : {museum.fax}
-                </li>
-            </ul>
-            <h2>Infos pratique</h2>
-            <ul>
-                <li>
-                    Fermeture annuelle : {museum.fermeture_annuelle}
-                </li>
-                <li>
-                    Jours nocturne : {museum.jours_nocturnes}
-                </li>
-                <li>
-                    Période d'ouverture : {museum.periode_ouverture}
-                </li>
-            </ul>
-            <h2>Autres</h2>
-            <ul>
-                <li>
-                    Date d'appellation : {museum.date_appellation}
-                </li>
-                <li>
-                    Appellation retirée par le haut conseil le {museum.date_retrait_appellation_par_haut_conseil}
-                </li>
-            </ul>
+            {
+                (museum.sitweb || museum.telephone1 || museum.fax) && (
+                    <>
+                        <h2>Coordonnées</h2>
+                        <ul>
+                            {
+                                museum.sitweb && (
+                                    <li>
+                                        Site web : {museum.sitweb}
+                                    </li>
+                                )
+                            }
+                            {
+                                museum.telephone1 && (
+                                    <li>
+                                        Téléphone : {museum.telephone1}
+                                    </li>
+
+                                )
+                            }
+                            {
+                                museum.fax && (
+                                    <li>
+                                        Fax : {museum.fax}
+                                    </li>
+                                )
+                            }
+                        </ul>
+                    </>
+                )
+            }
+            {
+                (museum.fermeture_annuelle || museum.jours_nocturnes || museum.periode_ouverture) && (
+                    <>
+                        <h2>Infos pratique</h2>
+                        <ul>
+                            {
+                                museum.fermeture_annuelle && (
+                                    <li>
+                                        Fermeture annuelle : {museum.fermeture_annuelle}
+                                    </li>
+                                )
+                            }
+                            {
+                                museum.jours_nocturnes && (
+                                    <li>
+                                        Jours nocturne : {museum.jours_nocturnes}
+                                    </li>
+                                )
+                            }
+                            {
+                                museum.periode_ouverture && (
+                                    <li>
+                                        Période d'ouverture : {museum.periode_ouverture}
+                                    </li>
+                                )
+                            }
+                        </ul>
+                    </>
+                )
+            }
+            {
+                (museum.date_appellation || museum.date_retrait_appellation_par_haut_conseil) && (
+                    <>
+                        <h2>Autres</h2>
+                        <ul>
+                            {
+                                museum.date_appellation && (
+                                    <li>
+                                        Date d'appellation : {museum.date_appellation}
+                                    </li>
+                                )
+                            }
+                            {
+                                museum.date_retrait_appellation_par_haut_conseil && (
+                                    <li>
+                                        Appellation retirée par le haut conseil le {museum.date_retrait_appellation_par_haut_conseil}
+                                    </li>
+                                )
+                            }
+                        </ul>
+                    </>
+                )
+            }
             <h2>Fréquentation du musée</h2>
             <MuseumAttendance museumReference={museum.ref_musee} />
         </section>

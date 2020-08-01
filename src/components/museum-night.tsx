@@ -12,6 +12,9 @@ const GraphTitle = styled.h2`
 `
 
 export const MuseumNight: React.FC = () => {
+
+    useEffect(() => { document.title = 'Nuit des musées' }, [])
+
     const [eventCountByCity, setEventCountByCity] = useState<CountByLocation[]>([])
     const [eventCountByDepartment, setEventCountByDepartment] = useState<CountByLocation[]>([])
     const [eventCountByRegion, setEventCountByRegion] = useState<CountByLocation[]>([])
