@@ -1,10 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-
+import { mediaQueries } from '../../theme/index.js';
 
 const PaginationWrapper = styled.div`
   display: flex;
   justify-content: center;
+  margin: 2rem;
+  text-align: center;
 `;
 
 const LinkPaginate = styled.a`
@@ -13,6 +15,9 @@ const LinkPaginate = styled.a`
   font-size: 1.2em;
   cursor: pointer;
   padding: 1rem
+  ${mediaQueries('s')`
+    font-size: 1em
+  `};
 `;
 
 const CurrentNum = styled.a`
@@ -23,6 +28,9 @@ const CurrentNum = styled.a`
   transition: .3s;
   font-weight: bold;
   padding: 1rem 1.2rem;
+  ${mediaQueries('s')`
+    font-size: 1em
+  `};
 `;
 
 

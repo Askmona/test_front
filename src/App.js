@@ -15,6 +15,7 @@ import MuseumDetails from './components/MuseumDetails';
 import Loader from './components/Loader';
 import NightMuseum from './components/NightMuseum';
 import Error from './components/Error';
+import { mediaQueries } from './theme/index.js';
 
 const Container = styled.div`
   display: flex;
@@ -24,6 +25,10 @@ const Container = styled.div`
   padding-right: 32px;
   max-width: 1280px;
   margin: auto;
+  ${mediaQueries('xs')`
+    padding-left: 16px;
+    padding-right: 16px;
+  `};
 `
 
 const Box = styled.div`
@@ -35,6 +40,7 @@ const Box = styled.div`
   flex-direction: column;
   white-space: pre-line;
   padding: 5px;
+  width: 100%;
 `
 
 const App = () => {

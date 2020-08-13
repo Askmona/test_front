@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import { mediaQueries } from '../../theme/index.js';
 
 const InputWrapper = styled.form`
   display: flex;
@@ -8,6 +9,9 @@ const InputWrapper = styled.form`
   width: 100%;
   align-items: center;
   margin-bottom: 2rem;
+  ${mediaQueries('m')`
+    flex-direction: column;
+  `};
 `
 
 const Input = styled.input`
@@ -18,6 +22,12 @@ const Input = styled.input`
   width: 50%;
   padding: 25px;
   font-size: 1em;
+  ${mediaQueries('m')`
+    margin-bottom: 1rem;
+  `};
+  ${mediaQueries('s')`
+    width: 80%;  
+  `};
 `;
 
 const Button = styled.button`
@@ -42,6 +52,13 @@ const Button = styled.button`
     box-shadow: 0 10px 20px 0 hsla(0,0%,47.1%,.3);
     transition: .3s;
   }
+  ${mediaQueries('m')`
+    margin: 0 auto;
+  `};
+  ${mediaQueries('xs')`
+    width: 50%;
+    padding: .8rem;
+  `};
 `;
 
 const SearchBar = ({ value, handleChange, handleSubmit }) => (

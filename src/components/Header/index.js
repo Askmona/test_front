@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components';
+import { mediaQueries } from '../../theme/index.js';
 
 import askMona from './ask-mona.png';
 
@@ -16,6 +17,16 @@ const Navbar = styled.header`
 
 const Navigation = styled.div`
   align-items: center;
+  ${mediaQueries('s')`
+    display: flex;
+    margin-top: .6rem;
+  `};
+`;
+
+const StyledImage = styled.img`
+  ${mediaQueries('s')`
+    margin: 0 auto;
+  `};
 `;
 
 const active = 'active';
@@ -66,11 +77,14 @@ const StyledLink = styled(NavLink).attrs({ active })`
       transform-origin: bottom right;
     }
   }
+  ${mediaQueries('s')`
+    margin-right: 1rem;
+  `};
 `;
 
 const Header = () => (
   <Navbar>
-    <img src={askMona} alt=""/>
+    <StyledImage src={askMona} alt=""/>
     <Navigation>
       <StyledLink to="/" exact>Liste des musées</StyledLink>
       <StyledLink to="/night-museum-2018">Nuit des musées 2018</StyledLink>

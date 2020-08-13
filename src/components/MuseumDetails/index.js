@@ -5,6 +5,7 @@ import { Line } from 'react-chartjs-2';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 import { Calendar, MapPin, Phone, MousePointer } from 'react-feather';
+import { mediaQueries } from '../../theme/index.js';
 
 import Loader from '../Loader';
 import StyledListMuseum from '../StyledListMuseum';
@@ -15,6 +16,9 @@ import ban from './ban1.png';
 
 const Adress = styled.div`
   text-align: center;
+  ${mediaQueries('s')`
+    margin-top: 6rem;
+  `};
 `;
 
 const StyledFullDiv = styled.div`
@@ -25,6 +29,7 @@ const StyledFullDiv = styled.div`
 
 const Text = styled.p`
   color: #8E8E8E;
+  padding: ${props => props.padding}
 `;
 
 const TextFull = styled.p`
@@ -39,11 +44,17 @@ const StyledDiv = styled.div`
   justify-content: space-evenly;
   text-align: center;
   margin-bottom: 6rem;
+  ${mediaQueries('s')`
+    flex-direction: column;
+  `};
 `;
 
 const LineWrapper = styled.div`
   width: 70%;
   margin: 2rem auto;
+  ${mediaQueries('s')`
+    width: 95%;
+  `};
 `;
 
 const StyledBold = styled.div`
@@ -59,23 +70,24 @@ const StyledTitleImg = styled.h1`
   background:url(${ban});
   width: 80%;
   font-size: 2.6em;
-  text-align: center;
+  line-height: 2.4;
   margin: 2rem 0 3rem;
   color: #FFF;
   font-weight: 900; 
   height: 100px;
   text-align: left;
-  line-height: 1.4;
   padding-left: 1.4rem;
-  span {
-    color: #d4d3d4;
-    display: block;
-    font-size: 1.4rem;
-    text-transform: lowercase;;
-    ::first-letter {
-      text-transform: uppercase;
-    }
-  }
+  ${mediaQueries('m')`
+    width: 90%;
+    font-size: 2.2em;
+  `};
+  ${mediaQueries('s')`
+    font-size: 1.6em;
+    line-height: 1.8;
+  `};
+  ${mediaQueries('xs')`
+    font-size: 1.4em;
+  `};
 `;
 
 const MuseumDetails = () => {
@@ -143,7 +155,7 @@ const MuseumDetails = () => {
       <Loader />}
       {!loading &&
       <StyledListMuseum>
-        <StyledTitleImg>{museum.nom_du_musee} <span>{museum.ville}</span> </StyledTitleImg>
+        <StyledTitleImg>{museum.nom_du_musee}</StyledTitleImg>
         <StyledFullDiv>
         <StyledSubtitle> <Calendar /> Quand y aller ?</StyledSubtitle>
           <TextFull>{museum.periode_ouverture ? museum.periode_ouverture : 'Information indisponible'}</TextFull>
@@ -151,7 +163,7 @@ const MuseumDetails = () => {
         <StyledDiv>
           <div>
             <StyledSubtitle><Phone />Comment les joindres ?</StyledSubtitle>
-            <Text>Tel: {museum.telephone1 ? museum.telephone1 : 'non renseigné'}</Text>
+            <Text padding={"1rem"}>Tel: {museum.telephone1 ? museum.telephone1 : 'non renseigné'}</Text>
             <Text>Fax: {museum.fax ? museum.fax : 'non renseigné'}</Text>
           </div>
           <Adress>
@@ -177,9 +189,9 @@ const MuseumDetails = () => {
       <Loader />}
       {!loadingAttendance &&
       <LineWrapper>
-      <StyledSubtitle>
-        Evolution de la fréquentation 
-      </StyledSubtitle>
+        <StyledSubtitle>
+          Evolution de la fréquentation 
+        </StyledSubtitle>
         <Line data={data} />
       </LineWrapper>}
     </>

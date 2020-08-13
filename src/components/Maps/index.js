@@ -6,6 +6,7 @@ import {
   Popup,
 } from 'react-leaflet';
 import styled from 'styled-components';
+import { mediaQueries } from '../../theme/index.js';
 
 const MapsWrapper = styled.div`
   border: 1px solid #1ba39c;
@@ -15,6 +16,12 @@ const MapsWrapper = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 2rem;
+  ${mediaQueries('m')`
+    width: 70%;
+  `};
+  ${mediaQueries('s')`
+    width: 90%;
+  `};
 `;
 
 const StyledMap = styled(Map)`

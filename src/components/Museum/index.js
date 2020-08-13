@@ -12,6 +12,7 @@ const MuseumWrapper = styled.div`
   width: 80%;
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 `;
 
 const Museum = ({
