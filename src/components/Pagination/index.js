@@ -38,15 +38,15 @@ const Pagination = ({
   const lastPage = Math.ceil(pageTotal / 8 + 1);
   return (
     <PaginationWrapper>
-      <LinkPaginate onClick={handleClickFirst}>1</LinkPaginate>
-      <LinkPaginate onClick={handleClickPrev}>&lt;</LinkPaginate>
+      <LinkPaginate data-jest='paginate-first' onClick={handleClickFirst}>1</LinkPaginate>
+      <LinkPaginate data-jest='paginate-prev' onClick={handleClickPrev}>&lt;</LinkPaginate>
       {page >= 2 &&
-      <LinkPaginate onClick={handleClickPrev}>{page - 1}</LinkPaginate>}
+      <LinkPaginate data-jest='paginate-prev2' onClick={handleClickPrev}>{page - 1}</LinkPaginate>}
       <CurrentNum>{page}</CurrentNum>
       {!(page >= lastPage) &&
-      <LinkPaginate onClick={handleClickNext}>{page + 1}</LinkPaginate>}
-      <LinkPaginate onClick={handleClickNext}>&gt;</LinkPaginate>
-      <LinkPaginate onClick={handleClickLast}>{pageTotal - 1}</LinkPaginate>
+      <LinkPaginate data-jest='paginate-next' onClick={handleClickNext}>{page + 1}</LinkPaginate>}
+      <LinkPaginate data-jest='paginate-next2' onClick={handleClickNext}>&gt;</LinkPaginate>
+      <LinkPaginate data-jest='paginate-last' onClick={handleClickLast}>{pageTotal - 1}</LinkPaginate>
     </PaginationWrapper>
   );
 }

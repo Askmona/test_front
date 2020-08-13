@@ -51,8 +51,8 @@ const MuseumTitle = styled.p`
 const Card = ({ nom_du_musee, ville, id }) => (
   <Link to={`/museum/${id}`}>
     <CardWrapper>
-      <MuseumTitle>{nom_du_musee}</MuseumTitle>
-      <MuseumCity>{ville}</MuseumCity>
+      <MuseumTitle data-jest='card-title'>{nom_du_musee}</MuseumTitle>
+      <MuseumCity data-jest='card-city'>{ville}</MuseumCity>
     </CardWrapper>
   </Link>
 );

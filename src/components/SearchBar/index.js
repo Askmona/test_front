@@ -50,13 +50,14 @@ const SearchBar = ({ value, handleChange, handleSubmit }) => (
       handleSubmit();
     }}>
       <Input
+        type="text"
         placeholder="Recherche par ville"
         value={value}
         onChange={(e) => {
           handleChange(e.target.value);
         }}
         />
-        <Button>Rechercher</Button>
+        <Button type="submit" >Rechercher</Button>
     </InputWrapper>
 );
 
