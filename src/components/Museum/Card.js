@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 const CardWrapper = styled.div`
     max-width: 100%;
     color: #8E8E8E;
+    position: relative;
     background: rgb(252,251,255);
     background: linear-gradient(177deg, rgba(252,251,255,1) 0%, rgba(255,255,255,1) 100%);
     display: flex;
@@ -48,14 +49,36 @@ const MuseumTitle = styled.p`
   color: #000
 `;
 
-const Card = ({ nom_du_musee, ville, id }) => (
-  <Link to={`/museum/${id}`}>
-    <CardWrapper>
-      <MuseumTitle data-jest='card-title'>{nom_du_musee}</MuseumTitle>
-      <MuseumCity data-jest='card-city'>{ville}</MuseumCity>
-    </CardWrapper>
-  </Link>
-);
+const StyledTitleHover = styled.p`
+  display: none;
+  font-size: .7em;
+  font-weight: 900;
+  color: #4054B2;
+  position: absolute;
+  bottom: 20px;
+  transition: .3s;
+`;
+
+const Card = ({ nom_du_musee, ville, id }) => {
+  const titleEl = useRef(null)
+  const displayTitle = () => {
+    titleEl.current.style.display = 'block';
+    titleEl.current.style.transition = '.3s';
+  }
+  const hideTitle = () => {
+    titleEl.current.style.display = 'none';
+  }
+  const nameMuseum = nom_du_musee.length > 45 ? `${nom_du_musee.slice(0, 45)}...` : nom_du_musee;
+  return (
+    <Link to={`/museum/${id}`}>
+      <CardWrapper onMouseEnter={displayTitle} onMouseLeave={hideTitle}>
+        <MuseumTitle data-jest='card-title'>{nameMuseum}</MuseumTitle>
+        <MuseumCity data-jest='card-city'>{ville}</MuseumCity>
+        <StyledTitleHover ref={titleEl}>En savoir plus</StyledTitleHover>
+      </CardWrapper>
+    </Link>
+  );
+}
 
 Card.propTypes = {
   nom_du_musee: PropTypes.string.isRequired,

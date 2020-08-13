@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 import { Line } from 'react-chartjs-2';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
@@ -25,6 +24,7 @@ const StyledFullDiv = styled.div`
   width: 100%;
   text-align: center;
   margin-bottom: 6rem;
+  margin-bottom: ${props => props.margin}
 `;
 
 const Text = styled.p`
@@ -150,7 +150,6 @@ const MuseumDetails = () => {
   }
   return (
     <>
-      <Link to="/">Retour</Link>
       {loading &&
       <Loader />}
       {!loading &&
@@ -174,7 +173,7 @@ const MuseumDetails = () => {
             <Text>{museum.region}</Text>
           </Adress>
         </StyledDiv>
-        <StyledFullDiv>
+        <StyledFullDiv margin={'1rem'} >
           <StyledSubtitle><MousePointer /> Site web</StyledSubtitle>
           <TextFull>{museum.sitweb}</TextFull>
         </StyledFullDiv>
@@ -189,15 +188,15 @@ const MuseumDetails = () => {
       <Loader />}
       {!loadingAttendance &&
       <LineWrapper>
+      {attendance.length !== 0 &&
         <StyledSubtitle>
           Evolution de la fréquentation 
-        </StyledSubtitle>
-        <Line data={data} />
+        </StyledSubtitle>}
+      {attendance.length !== 0 &&
+        <Line data={data} />}
       </LineWrapper>}
     </>
   );
 }
 
 export default MuseumDetails;
-
-// @TODO : btn retour

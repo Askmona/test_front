@@ -3,7 +3,6 @@ import {
   Map,
   TileLayer,
   Marker,
-  Popup,
 } from 'react-leaflet';
 import styled from 'styled-components';
 import { mediaQueries } from '../../theme/index.js';
@@ -50,9 +49,6 @@ const Maps = ({ lat, lon }) => {
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         />
         <Marker position={position}>
-          <Popup>
-            test
-          </Popup>
         </Marker>
       </StyledMap>
     </MapsWrapper>

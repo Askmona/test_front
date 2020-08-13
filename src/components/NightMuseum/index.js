@@ -12,7 +12,8 @@ const NightWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 80%;
-  margin: 0 auto;
+  align-items: center;
+  margin: 0 auto 2rem;
 `;
 
 const NightMuseum = () => {

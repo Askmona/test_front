@@ -21,15 +21,18 @@ const LinkPaginate = styled.a`
 `;
 
 const CurrentNum = styled.a`
+  padding: 0px;
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
   border-radius: 50%;
   background: #4054b2;
   color: #FFF;
   font-size: 1.2em;
   transition: .3s;
   font-weight: bold;
-  padding: 1rem 1.2rem;
   ${mediaQueries('s')`
-    font-size: 1em
+    font-size: 1em;
   `};
 `;
 

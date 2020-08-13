@@ -80,6 +80,10 @@ const StyledLink = styled(NavLink).attrs({ active })`
   ${mediaQueries('s')`
     margin-right: 1rem;
   `};
+  ${mediaQueries('xs')`
+    font-size: .8rem;
+    margin-right: .7rem;
+  `};
 `;
 
 const Header = () => (
