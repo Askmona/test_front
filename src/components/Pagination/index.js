@@ -36,7 +36,6 @@ const CurrentNum = styled.a`
   `};
 `;
 
-
 const Pagination = ({
   currentPage,
   pageTotal,
@@ -53,7 +52,7 @@ const Pagination = ({
       <LinkPaginate data-jest='paginate-prev' onClick={handleClickPrev}>&lt;</LinkPaginate>
       {page >= 2 &&
       <LinkPaginate data-jest='paginate-prev2' onClick={handleClickPrev}>{page - 1}</LinkPaginate>}
-      <CurrentNum>{page}</CurrentNum>
+      <CurrentNum data-jest='paginate-current'>{page}</CurrentNum>
       {!(page >= lastPage) &&
       <LinkPaginate data-jest='paginate-next' onClick={handleClickNext}>{page + 1}</LinkPaginate>}
       <LinkPaginate data-jest='paginate-next2' onClick={handleClickNext}>&gt;</LinkPaginate>

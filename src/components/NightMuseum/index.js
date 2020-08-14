@@ -7,6 +7,7 @@ import Loader from '../Loader';
 import StyledTitle from '../StyledTitle';
 import StyledSubtitle from '../StyledSubtitle';
 import Error from '../Error';
+import SelectPoint from './SelectPoint';
 
 const NightWrapper = styled.div`
   display: flex;
@@ -24,6 +25,8 @@ const NightMuseum = () => {
   const [loadingDepartment, setLoadingDepartment] = useState(true);
   const [loadingCity, setLoadingCity] = useState(true);
   const [error, setError] = useState(null);
+  const [limitDepartment, setLimitDepartment] = useState(20);
+  const [limitCity, setLimitCity] = useState(20);
 
   useEffect(() => {
     // Fetch the number of events by Region
@@ -37,7 +40,7 @@ const NightMuseum = () => {
       setError(error);
     });
     // Fetch the number of events by department
-    axios.get(`https://data.culture.gouv.fr/api/v2/catalog/datasets/liste-et-localisation-des-musees-de-france/aggregates?select=count(*)%20as%20count&group_by=departement&order_by=count(departement)desc&limit=20`)
+    axios.get(`https://data.culture.gouv.fr/api/v2/catalog/datasets/liste-et-localisation-des-musees-de-france/aggregates?select=count(*)%20as%20count&group_by=departement&order_by=count(departement)desc&limit=${limitDepartment}`)
     .then(response => {
       console.log(response.data)
       setCountByDepartment(response.data.aggregations);
@@ -47,7 +50,7 @@ const NightMuseum = () => {
       setError(error);
     });
     // Fetch the number of events by city
-    axios.get(`https://data.culture.gouv.fr/api/v2/catalog/datasets/liste-et-localisation-des-musees-de-france/aggregates?select=count(*)%20as%20count&group_by=ville&order_by=count(ville)desc&limit=20`)
+    axios.get(`https://data.culture.gouv.fr/api/v2/catalog/datasets/liste-et-localisation-des-musees-de-france/aggregates?select=count(*)%20as%20count&group_by=ville&order_by=count(ville)desc&limit=${limitCity}`)
     .then(response => {
       console.log(response.data)
       setCountByCity(response.data.aggregations);
@@ -56,7 +59,7 @@ const NightMuseum = () => {
     .catch((error) => {
       setError(error);
     });
-  }, [])
+  }, [limitDepartment, limitCity])
 
   const dataRegion = {
     labels: countByRegion.map(item => item.region),
@@ -103,6 +106,14 @@ const NightMuseum = () => {
     ]
   };
 
+  const changeLimitDep = (value) => {
+    setLimitDepartment(value);
+  }
+
+  const changeLimitCity = (value) => {
+    setLimitCity(value);
+  }
+
   if(error) {
     return <> 
       <Error error={error}/> 
@@ -119,11 +130,13 @@ const NightMuseum = () => {
         {loadingDepartment &&
         <Loader />}
         <StyledSubtitle>Nombre d'évenement par département</StyledSubtitle>
+        <SelectPoint handleChange={changeLimitDep} />
         {!loadingDepartment &&
         <Bar data={dataDepartment} />}
         {loadingCity &&
         <Loader />}
         <StyledSubtitle>Nombre d'évenement par ville</StyledSubtitle>
+        <SelectPoint handleChange={changeLimitCity} />
         {!loadingCity &&
         <Bar data={dataCity} />}
       </NightWrapper>
