@@ -15,20 +15,15 @@ import MuseumDetails from './components/MuseumDetails';
 import Loader from './components/Loader';
 import NightMuseum from './components/NightMuseum';
 import Error from './components/Error';
-import { mediaQueries } from './theme/index.js';
 
 const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-left: 32px;
-  padding-right: 32px;
+  padding-left: 16px;
+  padding-right: 16px;
   max-width: 1280px;
   margin: auto;
-  ${mediaQueries('xs')`
-    padding-left: 16px;
-    padding-right: 16px;
-  `};
 `
 
 const Box = styled.div`
@@ -80,9 +75,11 @@ const App = () => {
   }
 
   const setPaginationNext = () => {
-    if (currentPage < pageTotal - 8 ) {
+    if (currentPage < pageTotal - 8) {
       setLoading(true);
-      setCurrentPage(currentPage + 8);
+      setCurrentPage(currentPage + 8 );
+    } else {
+      setCurrentPage(currentPage + (pageTotal - currentPage - 1));
     }
   }
 
@@ -140,7 +137,7 @@ const App = () => {
             <Route path="/museum/:id">
               <MuseumDetails />
             </Route>
-            <Route path="/night-museum-2018">
+            <Route path="/night-museum-2018" exact>
                 <NightMuseum />
             </Route>
             <Route>

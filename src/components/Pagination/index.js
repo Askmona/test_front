@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { mediaQueries } from '../../theme/index.js';
+import PropTypes from 'prop-types';
 
 const PaginationWrapper = styled.div`
   display: flex;
@@ -34,6 +35,9 @@ const CurrentNum = styled.a`
   ${mediaQueries('s')`
     font-size: 1em;
   `};
+  ${mediaQueries('xs')`
+    padding: 0rem 1rem;
+  `};
 `;
 
 const Pagination = ({
@@ -46,19 +50,33 @@ const Pagination = ({
 }) => {
   const page = Math.ceil(currentPage / 8 + 1);
   const lastPage = Math.ceil(pageTotal / 8 + 1);
+  console.log(page);
+  console.log(lastPage);
+  if ( pageTotal <= 8 ) {
+    return null;
+  }
   return (
     <PaginationWrapper>
-      <LinkPaginate data-jest='paginate-first' onClick={handleClickFirst}>1</LinkPaginate>
-      <LinkPaginate data-jest='paginate-prev' onClick={handleClickPrev}>&lt;</LinkPaginate>
+      <LinkPaginate data-jest='paginate-first' onClick={handleClickFirst}>{page !== 1 ? '1' : ''}</LinkPaginate>
+      <LinkPaginate data-jest='paginate-prev' onClick={handleClickPrev}>{page !== 1 ? '<' : ''}</LinkPaginate>
       {page >= 2 &&
       <LinkPaginate data-jest='paginate-prev2' onClick={handleClickPrev}>{page - 1}</LinkPaginate>}
       <CurrentNum data-jest='paginate-current'>{page}</CurrentNum>
       {!(page >= lastPage) &&
       <LinkPaginate data-jest='paginate-next' onClick={handleClickNext}>{page + 1}</LinkPaginate>}
-      <LinkPaginate data-jest='paginate-next2' onClick={handleClickNext}>&gt;</LinkPaginate>
-      <LinkPaginate data-jest='paginate-last' onClick={handleClickLast}>{pageTotal - 1}</LinkPaginate>
+      <LinkPaginate data-jest='paginate-next2' onClick={handleClickNext}>{page !== lastPage ? '>' : ''}</LinkPaginate>
+      <LinkPaginate data-jest='paginate-last' onClick={handleClickLast}>{page !== lastPage ? lastPage : ''}</LinkPaginate>
     </PaginationWrapper>
   );
+}
+
+Pagination.propTypes = {
+  currentPage: PropTypes.number.isRequired,
+  pageTotal: PropTypes.number.isRequired,
+  handleClickPrev: PropTypes.func.isRequired,
+  handleClickNext: PropTypes.func.isRequired,
+  handleClickLast: PropTypes.func.isRequired,
+  handleClickFirst: PropTypes.func.isRequired,
 }
 
 export default Pagination;

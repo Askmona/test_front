@@ -91,7 +91,7 @@ const Header = () => (
     <StyledImage src={askMona} alt=""/>
     <Navigation>
       <StyledLink to="/" exact>Liste des musées</StyledLink>
-      <StyledLink to="/night-museum-2018">Nuit des musées 2018</StyledLink>
+      <StyledLink to="/night-museum-2018" exact>Nuit des musées 2018</StyledLink>
     </Navigation>
   </Navbar>
 );

@@ -106,6 +106,30 @@ const NightMuseum = () => {
     ]
   };
 
+  const limitPoint = [ 
+    { id: 1,
+      limit: 5,
+    },
+    { id: 2,
+      limit: 10,
+    },
+    { id: 3,
+      limit: 20,
+    },
+    { id: 4,
+      limit: 50,
+    },
+    { id: 5,
+      limit: 100,
+    },
+    { id: 6,
+      limit: 150,
+    },
+    { id: 7,
+      limit: 200,
+    },
+  ];
+
   const changeLimitDep = (value) => {
     setLimitDepartment(value);
   }
@@ -124,21 +148,21 @@ const NightMuseum = () => {
         <StyledTitle>Nuit des musées 2018</StyledTitle>
         {loadingRegion &&
         <Loader />}
-        <StyledSubtitle>Nombre d'évenement par région</StyledSubtitle>
-        {!loadingRegion
-        && <Bar data={dataRegion} />}
-        {loadingDepartment &&
-        <Loader />}
-        <StyledSubtitle>Nombre d'évenement par département</StyledSubtitle>
-        <SelectPoint handleChange={changeLimitDep} />
-        {!loadingDepartment &&
-        <Bar data={dataDepartment} />}
-        {loadingCity &&
-        <Loader />}
-        <StyledSubtitle>Nombre d'évenement par ville</StyledSubtitle>
-        <SelectPoint handleChange={changeLimitCity} />
-        {!loadingCity &&
-        <Bar data={dataCity} />}
+          <StyledSubtitle>Nombre d'évenement par région</StyledSubtitle>
+          {!loadingRegion
+          && <Bar data={dataRegion} width={700} height={400}/>}
+          {loadingDepartment &&
+          <Loader />}
+          <StyledSubtitle>Nombre d'évenement par département</StyledSubtitle>
+          <SelectPoint handleChange={changeLimitDep} limitPoint={limitPoint} />
+          {!loadingDepartment &&
+          <Bar data={dataDepartment} width={700} height={400}/>}
+          {loadingCity &&
+          <Loader />}
+          <StyledSubtitle>Nombre d'évenement par ville</StyledSubtitle>
+          <SelectPoint handleChange={changeLimitCity} limitPoint={limitPoint} />
+          {!loadingCity &&
+          <Bar data={dataCity} width={700} height={400}/>}
       </NightWrapper>
   );
 }

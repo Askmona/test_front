@@ -6,6 +6,7 @@ import {
 } from 'react-leaflet';
 import styled from 'styled-components';
 import { mediaQueries } from '../../theme/index.js';
+import PropTypes from 'prop-types';
 
 const MapsWrapper = styled.div`
   border: 1px solid #1ba39c;
@@ -53,6 +54,11 @@ const Maps = ({ lat, lon }) => {
       </StyledMap>
     </MapsWrapper>
   )
+};
+
+Maps.propTypes = {
+  lat: PropTypes.number.isRequired,
+  lon: PropTypes.number.isRequired,
 };
 
 export default Maps;
