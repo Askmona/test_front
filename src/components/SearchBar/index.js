@@ -6,9 +6,10 @@ import { mediaQueries } from '../../theme/index.js';
 const InputWrapper = styled.form`
   display: flex;
   justify-content: center;
-  width: 100%;
+  width: 73%;
   align-items: center;
   margin-bottom: 2rem;
+  margin-top: 4rem;
   ${mediaQueries('m')`
     flex-direction: column;
   `};

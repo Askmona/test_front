@@ -1,19 +1,14 @@
 import styled from 'styled-components';
-import { mediaQueries } from '../../theme/index.js';
 
-const StyledTitle = styled.h1`
-  width: 100%;
-  font-size: 2.6em;
+const StyledTitle = styled.h3`
+  font-size: 4em;
+  font-weight: 500;
   text-align: center;
-  margin: 2rem 0 3rem;
-  color: #2e2e7a;
-  font-weight: 900; 
-  ${mediaQueries('s')`
-    font-size: 2.2em
-  `};
-  ${mediaQueries('xs')`
-    font-size: 2em
-  `};
+  margin: 2.6rem auto 0;
+  span {
+    color: #FFF;
+    -webkit-text-stroke: 1px #000;
+  }
 `;
 
 export default StyledTitle;

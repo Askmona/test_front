@@ -3,6 +3,8 @@ import { NavLink } from 'react-router-dom'
 import styled from 'styled-components';
 import { mediaQueries } from '../../theme/index.js';
 
+import banner from './banner-header.png';
+
 import askMona from './ask-mona.png';
 
 const Navbar = styled.header`
@@ -12,11 +14,18 @@ const Navbar = styled.header`
   padding: 1rem;
   justify-content: space-between;
   width: 100%;
-  box-shadow: 0 0 8px 0 rgba(0,0,0,.05);
+  padding: 2rem 3rem;
+  position: ${props => props.background ? 'none' : 'absolute'};
+  top: 0;
+  z-index: 10;
+  background: ${props => props.background ? `url(${banner})` : 'none'};
 `;
 
 const Navigation = styled.div`
   align-items: center;
+  ${mediaQueries('m')`
+    margin: 0 auto;
+  `};
   ${mediaQueries('s')`
     display: flex;
     margin-top: .6rem;
@@ -24,7 +33,7 @@ const Navigation = styled.div`
 `;
 
 const StyledImage = styled.img`
-  ${mediaQueries('s')`
+  ${mediaQueries('m')`
     margin: 0 auto;
   `};
 `;
@@ -32,22 +41,22 @@ const StyledImage = styled.img`
 const active = 'active';
 
 const StyledLink = styled(NavLink).attrs({ active })`
-  color: #2E2E7A;
-  text-transform: lowercase;
-  font-size: 1em;
-  font-weight: 500;
+  color: #FFF;
+  font-size: 1.2em;
+  font-weight: 600;
   margin-right: 4rem;
   position: relative;
   display: inline-block;
+  font-family: 'Montserrat', sans-serif;
   &::after {
     content: '';
     position: absolute;
     width: 100%;
     transform: scaleX(0);
     height: 2px;
-    bottom: 0;
+    bottom: -2px;
     left: 0;
-    background-color: #2E2E7A;
+    background-color: #FFF;
     transform-origin: bottom right;
     transition: transform 0.4s cubic-bezier(0.86, 0, 0.07, 1);
   }
@@ -65,9 +74,9 @@ const StyledLink = styled(NavLink).attrs({ active })`
       width: 100%;
       transform: scaleX(1);
       height: 2px;
-      bottom: 0;
+      bottom: -2px;
       left: 0;
-      background-color: #2E2E7A;
+      background-color: #FFF;
       transform-origin: bottom left;
       transition: transform .3s ease-in-out;
     }
@@ -86,14 +95,17 @@ const StyledLink = styled(NavLink).attrs({ active })`
   `};
 `;
 
-const Header = () => (
-  <Navbar>
-    <StyledImage src={askMona} alt=""/>
-    <Navigation>
-      <StyledLink to="/" exact>Liste des musées</StyledLink>
-      <StyledLink to="/night-museum-2018" exact>Nuit des musées 2018</StyledLink>
-    </Navigation>
-  </Navbar>
-);
+const Header = ({ background }) => {
+  const displayBackground = background ? background : null;
+  return (
+    <Navbar background={displayBackground} >
+      <StyledImage src={askMona} alt=""/>
+      <Navigation>
+        <StyledLink to="/" exact>Les musées à découvrir</StyledLink>
+        <StyledLink to="/night-museum-2018" exact>Nuit des musées 2018</StyledLink>
+      </Navigation>
+    </Navbar>
+  );
+}
 
 export default Header;

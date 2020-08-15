@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
+import icon from './icon-museum.svg';
 
 const CardWrapper = styled.div`
     max-width: 100%;
@@ -59,6 +60,11 @@ const StyledTitleHover = styled.p`
   transition: .3s;
 `;
 
+const StyledIcon = styled.img`
+  width: 24px;
+  height: 24px;
+`;
+
 const Card = ({ nom_du_musee, ville, id }) => {
   const titleEl = useRef(null)
   const displayTitle = () => {
@@ -72,6 +78,7 @@ const Card = ({ nom_du_musee, ville, id }) => {
   return (
     <Link to={`/museum/${id}`}>
       <CardWrapper onMouseEnter={displayTitle} onMouseLeave={hideTitle}>
+        <StyledIcon src={icon} alt=""/>
         <MuseumTitle data-jest='card-title'>{nameMuseum}</MuseumTitle>
         <MuseumCity data-jest='card-city'>{ville}</MuseumCity>
         <StyledTitleHover ref={titleEl}>En savoir plus</StyledTitleHover>

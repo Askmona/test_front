@@ -8,8 +8,9 @@ export default {
 export const breakpoints = {
   xl: '1440px',
   l: '1170px',
+  special: '930px',
   m: '768px',
-  s: '480px',
+  s: '490px',
   xs: '375px',
 };
 

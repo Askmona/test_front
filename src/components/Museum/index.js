@@ -5,11 +5,10 @@ import PropTypes from 'prop-types'
 import SearchBar from '../SearchBar';
 import Card from './Card';
 import Pagination from '../Pagination';
-import StyledTitle from '../StyledTitle';
 import StyledListMuseum from '../StyledListMuseum';
 
 const MuseumWrapper = styled.div`
-  width: 80%;
+  width: 60%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -29,7 +28,6 @@ const Museum = ({
 }) => (
   <>
     <StyledListMuseum>
-      <StyledTitle>Liste des musées</StyledTitle>
       <SearchBar
         value={value}
         handleChange={handleChange}

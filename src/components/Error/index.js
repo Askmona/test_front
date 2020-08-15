@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import styled from 'styled-components';
-import vanGogh from './lanuitetoilee.jpg';
+import leCri from './le-cri.jpg';
 
 const StyledError = styled.div`
   margin-top: 10rem;
@@ -13,8 +13,10 @@ const StyledError = styled.div`
 `;
 
 const StyledTitleBackground = styled.p`
-  background-image: url(${vanGogh});
+  background-image: url(${leCri});
   background-size: cover;
+  background-size: contain;
+  background-position-x: center;
   background-clip: text; 
   -webkit-background-clip: text;
   color: transparent;

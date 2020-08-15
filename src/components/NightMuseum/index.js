@@ -4,8 +4,8 @@ import { Bar } from 'react-chartjs-2';
 import styled from 'styled-components';
 
 import Loader from '../Loader';
+import StyledTitleImg from '../StyledTitleImg';
 import StyledTitle from '../StyledTitle';
-import StyledSubtitle from '../StyledSubtitle';
 import Error from '../Error';
 import SelectPoint from './SelectPoint';
 
@@ -145,24 +145,30 @@ const NightMuseum = () => {
   }
     return (
       <NightWrapper>
-        <StyledTitle>Nuit des musées 2018</StyledTitle>
-        {loadingRegion &&
-        <Loader />}
-          <StyledSubtitle>Nombre d'évenement par région</StyledSubtitle>
-          {!loadingRegion
-          && <Bar data={dataRegion} width={700} height={400}/>}
-          {loadingDepartment &&
-          <Loader />}
-          <StyledSubtitle>Nombre d'évenement par département</StyledSubtitle>
+        <StyledTitleImg>Nuit des musées 2018</StyledTitleImg>
+          <StyledTitle>Nombre d'évenement par <span>région</span></StyledTitle>
+          <div>
+            {loadingRegion &&
+              <Loader />}
+            {!loadingRegion
+            && <Bar data={dataRegion} width={1250} height={400} options={{ maintainAspectRatio: false }}/>}         
+          </div>
+          <StyledTitle>Nombre d'évenement par <span>département</span></StyledTitle>
           <SelectPoint handleChange={changeLimitDep} limitPoint={limitPoint} />
-          {!loadingDepartment &&
-          <Bar data={dataDepartment} width={700} height={400}/>}
-          {loadingCity &&
-          <Loader />}
-          <StyledSubtitle>Nombre d'évenement par ville</StyledSubtitle>
+          <div>
+            {loadingDepartment &&
+              <Loader />}
+            {!loadingDepartment &&
+            <Bar data={dataDepartment} width={1250} height={400} options={{ maintainAspectRatio: false }}/>}
+          </div>
+          <StyledTitle>Nombre d'évenement par <span>ville</span></StyledTitle>
           <SelectPoint handleChange={changeLimitCity} limitPoint={limitPoint} />
-          {!loadingCity &&
-          <Bar data={dataCity} width={700} height={400}/>}
+          <div>
+            {loadingCity &&
+              <Loader />}
+            {!loadingCity &&
+            <Bar data={dataCity} width={1250} height={400} options={{ maintainAspectRatio: false }}/>}
+          </div>
       </NightWrapper>
   );
 }

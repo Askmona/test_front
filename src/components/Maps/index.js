@@ -15,7 +15,8 @@ const MapsWrapper = styled.div`
   position: relative;
   display: flex;
   justify-content: center;
-  margin-top: 2rem;
+  width: 40%;
+  margin: 2rem auto;
   ${mediaQueries('m')`
     width: 70%;
   `};

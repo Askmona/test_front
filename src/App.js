@@ -15,26 +15,23 @@ import MuseumDetails from './components/MuseumDetails';
 import Loader from './components/Loader';
 import NightMuseum from './components/NightMuseum';
 import Error from './components/Error';
+import Home from './components/Home';
+import ScrollToTop from './components/ScrollToTop';
 
 const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-left: 16px;
-  padding-right: 16px;
-  max-width: 1280px;
   margin: auto;
 `
 
 const Box = styled.div`
   display: flex;
   flex: 1;
-  border-radius: 5px;
   background: white;
   min-height: 100vh;
   flex-direction: column;
   white-space: pre-line;
-  padding: 5px;
   width: 100%;
 `
 
@@ -112,41 +109,45 @@ const App = () => {
 
   return (
     <Router>
-      <ThemeProvider theme={theme}>
-        <Container>
-          <Box>
-          <Header />
-          <Switch>
-            <Route path="/" exact>
-              {loading &&
-              <Loader />}
-              {!loading &&
-              <Museum
-                museums={museums}
-                value={searchValue}
-                handleChange={setInputValue}
-                handleSubmit={setSearchSubmit}
-                pageTotal={pageTotal}
-                currentPage={currentPage}
-                handleClickNext={setPaginationNext}
-                handleClickPrev={setPaginationPrev}
-                handleClickLast={setPaginationLast}
-                handleClickFirst={setPaginationFirst}
-              />}
-            </Route>
-            <Route path="/museum/:id">
-              <MuseumDetails />
-            </Route>
-            <Route path="/night-museum-2018" exact>
+      <ScrollToTop />
+        <ThemeProvider theme={theme}>
+          <Container>
+            <Box>
+            <Switch>
+              <Route path="/" exact>
+                <Header />
+                <Home />
+                {loading &&
+                <Loader />}
+                {!loading &&
+                <Museum
+                  museums={museums}
+                  value={searchValue}
+                  handleChange={setInputValue}
+                  handleSubmit={setSearchSubmit}
+                  pageTotal={pageTotal}
+                  currentPage={currentPage}
+                  handleClickNext={setPaginationNext}
+                  handleClickPrev={setPaginationPrev}
+                  handleClickLast={setPaginationLast}
+                  handleClickFirst={setPaginationFirst}
+                />}
+              </Route>
+              <Route path="/museum/:id">
+                <Header background />
+                <MuseumDetails />
+              </Route>
+              <Route path="/night-museum-2018" exact>
+                <Header background />
                 <NightMuseum />
-            </Route>
-            <Route>
-              <Error error={error} />
-            </Route>
-          </Switch>
-          </Box>
-        </Container>
-      </ThemeProvider>
+              </Route>
+              <Route>
+                <Error error={error} />
+              </Route>
+            </Switch>
+            </Box>
+          </Container>
+        </ThemeProvider>
     </Router>
   );
 }
