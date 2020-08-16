@@ -1,21 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Bar } from 'react-chartjs-2';
-import styled from 'styled-components';
 
 import Loader from '../Loader';
 import StyledTitleImg from '../StyledTitleImg';
 import StyledTitle from '../StyledTitle';
+import StyledLineWrapper from '../StyledLineWrapper';
 import Error from '../Error';
 import SelectPoint from './SelectPoint';
-
-const NightWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 80%;
-  align-items: center;
-  margin: 0 auto 2rem;
-`;
 
 const NightMuseum = () => {
   const [countByRegion, setCountByRegion] = useState([]);
@@ -71,7 +63,7 @@ const NightMuseum = () => {
         borderWidth: 1,
         hoverBackgroundColor: '#EB6867',
         hoverBorderColor: '#EB6867',
-        data: countByRegion.map(item => item.count)
+        data: countByRegion.map(item => item.count),
       }
     ]
   };
@@ -144,24 +136,43 @@ const NightMuseum = () => {
     </>
   }
     return (
-      <NightWrapper>
+      <>
         <StyledTitleImg>Nuit des musées 2018</StyledTitleImg>
-          <StyledTitle>Nombre d'évenement par <span>région</span></StyledTitle>
+        <StyledLineWrapper>
+          <StyledTitle textAlign>Nombre d'évenement <br/><span>par région</span></StyledTitle>
           <div>
             {loadingRegion &&
               <Loader />}
             {!loadingRegion
-            && <Bar data={dataRegion} width={1250} height={400} options={{ maintainAspectRatio: false }}/>}         
+            && <Bar data={dataRegion} width={1250} height={400} options={{ maintainAspectRatio: false, 
+              layout: {
+                padding: {
+                  left: 40,
+                }
+              }
+            }}
+          />}         
           </div>
-          <StyledTitle>Nombre d'évenement par <span>département</span></StyledTitle>
+        </StyledLineWrapper>
+        <StyledLineWrapper>
+          <StyledTitle textAlign>Nombre d'évenement <br/><span>par département</span></StyledTitle>
           <SelectPoint handleChange={changeLimitDep} limitPoint={limitPoint} />
           <div>
             {loadingDepartment &&
               <Loader />}
             {!loadingDepartment &&
-            <Bar data={dataDepartment} width={1250} height={400} options={{ maintainAspectRatio: false }}/>}
+            <Bar data={dataDepartment} width={1250} height={400} options={{ maintainAspectRatio: false, 
+              layout: {
+                padding: {
+                  left: 30,
+                }
+              }
+            }}
+          />}         
           </div>
-          <StyledTitle>Nombre d'évenement par <span>ville</span></StyledTitle>
+        </StyledLineWrapper>
+        <StyledLineWrapper>
+          <StyledTitle textAlign>Nombre d'évenement <br/><span>par ville</span></StyledTitle>
           <SelectPoint handleChange={changeLimitCity} limitPoint={limitPoint} />
           <div>
             {loadingCity &&
@@ -169,7 +180,8 @@ const NightMuseum = () => {
             {!loadingCity &&
             <Bar data={dataCity} width={1250} height={400} options={{ maintainAspectRatio: false }}/>}
           </div>
-      </NightWrapper>
+        </StyledLineWrapper>
+      </>
   );
 }
 

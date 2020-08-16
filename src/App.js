@@ -17,6 +17,7 @@ import NightMuseum from './components/NightMuseum';
 import Error from './components/Error';
 import Home from './components/Home';
 import ScrollToTop from './components/ScrollToTop';
+import Footer from './components/Footer';
 
 const Container = styled.div`
   display: flex;
@@ -102,7 +103,6 @@ const App = () => {
   }
   if(error) {
     return <> 
-      <Header />
       <Error error={error}/> 
     </>
   }
@@ -113,38 +113,39 @@ const App = () => {
         <ThemeProvider theme={theme}>
           <Container>
             <Box>
-            <Switch>
-              <Route path="/" exact>
-                <Header />
-                <Home />
-                {loading &&
-                <Loader />}
-                {!loading &&
-                <Museum
-                  museums={museums}
-                  value={searchValue}
-                  handleChange={setInputValue}
-                  handleSubmit={setSearchSubmit}
-                  pageTotal={pageTotal}
-                  currentPage={currentPage}
-                  handleClickNext={setPaginationNext}
-                  handleClickPrev={setPaginationPrev}
-                  handleClickLast={setPaginationLast}
-                  handleClickFirst={setPaginationFirst}
-                />}
-              </Route>
-              <Route path="/museum/:id">
-                <Header background />
-                <MuseumDetails />
-              </Route>
-              <Route path="/night-museum-2018" exact>
-                <Header background />
-                <NightMuseum />
-              </Route>
-              <Route>
-                <Error error={error} />
-              </Route>
-            </Switch>
+              <Switch>
+                <Route path="/" exact>
+                  <Header />
+                  <Home />
+                  {loading &&
+                  <Loader />}
+                  {!loading &&
+                  <Museum
+                    museums={museums}
+                    value={searchValue}
+                    handleChange={setInputValue}
+                    handleSubmit={setSearchSubmit}
+                    pageTotal={pageTotal}
+                    currentPage={currentPage}
+                    handleClickNext={setPaginationNext}
+                    handleClickPrev={setPaginationPrev}
+                    handleClickLast={setPaginationLast}
+                    handleClickFirst={setPaginationFirst}
+                  />}
+                </Route>
+                <Route path="/museum/:id">
+                  <Header background/>
+                  <MuseumDetails />
+                </Route>
+                <Route path="/night-museum-2018" exact>
+                  <Header background/>
+                  <NightMuseum />
+                </Route>
+                <Route>
+                  <Error error={error}/>
+                </Route>
+              </Switch>
+              <Footer />
             </Box>
           </Container>
         </ThemeProvider>

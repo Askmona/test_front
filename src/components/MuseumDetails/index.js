@@ -3,13 +3,14 @@ import axios from 'axios';
 import { Line } from 'react-chartjs-2';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
-import { mediaQueries } from '../../theme/index.js';
 
 import Loader from '../Loader';
 import StyledTitleImg from '../StyledTitleImg';
 import StyledTitle from '../StyledTitle';
+import StyledLineWrapper from '../StyledLineWrapper';
 import Error from '../Error';
 import Maps from '../Maps';
+import { mediaQueries } from '../../theme/index.js';
 
 const Text = styled.p`
   color: #535353;
@@ -17,13 +18,10 @@ const Text = styled.p`
   margin: .2rem auto;
   font-size: 1.4em;
   width: 55%;
-`;
-
-const LineWrapper = styled.div`
-  width: 70%;
-  margin: 2rem auto;
-  ${mediaQueries('s')`
-    width: 95%;
+  line-height: 2rem;
+  margin: 1rem auto;
+  ${mediaQueries('m')`
+    font-size: 1.2em;
   `};
 `;
 
@@ -33,6 +31,9 @@ const StyledBold = styled.div`
   color: #8E8E8E;
   width: 100%;
   text-align: center;
+  ${mediaQueries('m')`
+    font-size: 1em;
+  `};
 `;
 
 const StyledWrapperDetail = styled.div`
@@ -41,11 +42,12 @@ const StyledWrapperDetail = styled.div`
 `;
 
 const StyledSubtitleCity = styled.div`
+  color: #282828;
   text-align: center;
-  margin: 0 auto;
+  margin: 1.5rem auto 2rem;
   letter-spacing: 15px;
   font-size: 2em;
-  text-transform: lowercase;
+  text-transform: uppercase;
   ::first-letter {
     text-transform: uppercase;
   }
@@ -78,6 +80,18 @@ const MuseumDetails = () => {
     });
   }, [id, museum.nom_du_musee]);
 
+  useEffect(() => {
+    if (museum) {
+      document.title = museum.nom_du_musee;
+    }
+    if (museum.nom_du_musee === undefined) {
+      document.title = 'Ask Mona';
+    }
+    return () => {
+      document.title = 'Ask Mona';
+    }
+  }, [museum]);
+
   const attendanceArr = attendance.map((year) => {
     return {
       date: year.record.fields.annee,
@@ -104,6 +118,7 @@ const MuseumDetails = () => {
       }
     ]
   };
+
   if(error) {
     return <> 
       <Error error={error}/> 
@@ -118,43 +133,43 @@ const MuseumDetails = () => {
         <StyledTitleImg>
           {museum.nom_du_musee}
         </StyledTitleImg>
-        <StyledSubtitleCity>
-          ({museum.ville})
-        </StyledSubtitleCity>
+        {museum.ville &&
+          <StyledSubtitleCity>
+            ({museum.ville})
+          </StyledSubtitleCity>}
         <StyledTitle>
-          Quand y <br/><span>aller ?</span>
+          Quand y <span>aller ?</span>
         </StyledTitle>
-          <Text>{museum.periode_ouverture ? museum.periode_ouverture : 'Information indisponible'}</Text>
-            <StyledTitle>Comment les <br/><span>joindre ?</span></StyledTitle>
-            <Text>Tel: {museum.telephone1 ? museum.telephone1 : 'non renseigné'}</Text>
-            <Text>Fax: {museum.fax ? museum.fax : 'non renseigné'}</Text>
-            <StyledTitle>Où les <br/><span>trouver ?</span></StyledTitle>
-            <Text>{museum.adr}</Text>
-            <Text>{museum.ville}</Text>
-            <Text>{museum.departement}</Text>
-            <Text>{museum.region}</Text>
-          <StyledTitle>Site web</StyledTitle>
-          <Text>{museum.sitweb}</Text>
+        <Text>{museum.periode_ouverture ? museum.periode_ouverture : 'Information indisponible'}</Text>
+          <StyledTitle>Où les <span>trouver ?</span></StyledTitle>
+          <Text>{museum.adr}<br/>{`${museum.cp} ${museum.ville}`}<br/>{museum.departement}<br/>{museum.region}</Text>
+        <Text>
+          Tel: {museum.telephone1 ? museum.telephone1 : 'non renseigné'}
+          <br/>
+          Fax: {museum.fax ? museum.fax : 'non renseigné'}
+        </Text>
+        {museum.sitweb &&
+          <Text>{museum.sitweb}</Text>}
         {museum.fermeture_annuelle &&
-        <StyledBold>
-          <Text><span>nb:</span> Ils sont fermés le {museum.fermeture_annuelle}</Text>
-        </StyledBold>}
+          <StyledBold>
+            <Text>Fermeture: {museum.fermeture_annuelle}</Text>
+          </StyledBold>}
         {museum.coordonnees_finales &&
           <Maps {...museum.coordonnees_finales} />}
       </StyledWrapperDetail>}
-      {loadingAttendance &&
+        {loadingAttendance &&
       <Loader />}
-      {!loadingAttendance &&
-      <LineWrapper>
-      {attendance.length !== 0 &&
-        <StyledTitle>
-          Evolution de la <br/><span>fréquentation </span>
-        </StyledTitle>}
-        <div>
-          {attendance.length !== 0 &&
-          <Line data={data} width={700} height={400} options={{ maintainAspectRatio: false }} />}
-        </div>
-        </LineWrapper>}
+        {!loadingAttendance &&
+      <StyledLineWrapper>
+        {attendance.length !== 0 &&
+          <StyledTitle textAlign >
+            Evolution de la <br/><span>fréquentation </span>
+          </StyledTitle>}
+          <div>
+            {attendance.length !== 0 &&
+            <Line data={data} width={700} height={400} options={{ maintainAspectRatio: false }} />}
+          </div>
+      </StyledLineWrapper>}
     </>
   );
 }

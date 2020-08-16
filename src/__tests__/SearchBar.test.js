@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import SearchBar from '../components/SearchBar';
 
 describe('<SearchBar />', () => {
@@ -11,6 +11,10 @@ describe('<SearchBar />', () => {
     handleSubmit: () => onHandleSubmitMock(),
   };
   const wrapper = shallow(<SearchBar {...props} />)
+
+  it('Shoulds render.', () => {
+    expect(mount(<SearchBar {...props} />)).toMatchSnapshot();
+  })
 
   it('renders', () => {
     expect(wrapper.exists()).toBe(true);

@@ -25,9 +25,9 @@ const Navigation = styled.div`
   align-items: center;
   ${mediaQueries('m')`
     margin: 0 auto;
+    display: flex;
   `};
   ${mediaQueries('s')`
-    display: flex;
     margin-top: .6rem;
   `};
 `;
@@ -59,6 +59,9 @@ const StyledLink = styled(NavLink).attrs({ active })`
     background-color: #FFF;
     transform-origin: bottom right;
     transition: transform 0.4s cubic-bezier(0.86, 0, 0.07, 1);
+    ${mediaQueries('m')`
+        display:none;
+      `};
   }
   &:hover::after {
     transform: scaleX(1);
@@ -79,6 +82,9 @@ const StyledLink = styled(NavLink).attrs({ active })`
       background-color: #FFF;
       transform-origin: bottom left;
       transition: transform .3s ease-in-out;
+      ${mediaQueries('m')`
+        display:none;
+      `};
     }
     
     &:hover::after {
@@ -86,11 +92,10 @@ const StyledLink = styled(NavLink).attrs({ active })`
       transform-origin: bottom right;
     }
   }
-  ${mediaQueries('s')`
+  ${mediaQueries('m')`
     margin-right: 1rem;
   `};
   ${mediaQueries('xs')`
-    font-size: .8rem;
     margin-right: .7rem;
   `};
 `;

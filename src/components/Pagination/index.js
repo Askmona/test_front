@@ -50,8 +50,6 @@ const Pagination = ({
 }) => {
   const page = Math.ceil(currentPage / 8 + 1);
   const lastPage = Math.ceil(pageTotal / 8 + 1);
-  console.log(page);
-  console.log(lastPage);
   if ( pageTotal <= 8 ) {
     return null;
   }

@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import { mediaQueries } from '../../theme/index.js';
 
 const StyledLimitWrapper = styled.div`
   display: flex;
@@ -9,6 +10,9 @@ const StyledLimitWrapper = styled.div`
   font-size: 1em;
   margin: 1rem;
   color: #8E8E8E;
+  ${mediaQueries('s')`
+    flex-direction: column;
+  `};
 `;
 
 const StyledSelect = styled.select`

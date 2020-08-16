@@ -16,18 +16,24 @@ const InputWrapper = styled.form`
 `
 
 const Input = styled.input`
+  font-family: "Poppins", Sans-serif;
+  font-size: 1.2em;
   height: 35px;
   border-radius: 50px; 
   border: none; 
   box-shadow: 0 1px 6px 0 rgba(32, 33, 36, .28);
   width: 50%;
   padding: 25px;
-  font-size: 1em;
+  color: rgba(64,84,178,1);
+  :focus::-webkit-input-placeholder {
+    color: rgba(64,84,178,1);
+    transition: all .5s ease;
+  }
   ${mediaQueries('m')`
     margin-bottom: 1rem;
   `};
   ${mediaQueries('s')`
-    width: 80%;  
+    width: 100%;  
   `};
 `;
 
@@ -57,7 +63,7 @@ const Button = styled.button`
     margin: 0 auto;
   `};
   ${mediaQueries('xs')`
-    width: 50%;
+    width: 70%;
     padding: .8rem;
   `};
 `;

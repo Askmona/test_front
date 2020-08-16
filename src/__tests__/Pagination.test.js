@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import Pagination from '../components/Pagination';
 
 describe('<Pagination />', () => {
@@ -17,6 +17,9 @@ describe('<Pagination />', () => {
     handleClickFirst: () => onHandleFirstMock(),
   }
   const wrapper = shallow(<Pagination {...props} />)
+  it('Shoulds render.', () => {
+    expect(mount(<Pagination {...props} />)).toMatchSnapshot();
+  })
   it('Should call "handleClickFirst" when clicking on the first paginate.', () => {
     wrapper.find("[data-jest='paginate-first']").simulate('click');
     expect(onHandleFirstMock).toHaveBeenCalled();

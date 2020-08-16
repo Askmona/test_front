@@ -63,5 +63,3 @@ Maps.propTypes = {
 };
 
 export default Maps;
-
-// @TODO gérer les titres trop grand qui dépasse de la bannière

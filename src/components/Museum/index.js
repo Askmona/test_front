@@ -1,17 +1,21 @@
 import React from 'react';
 import styled from 'styled-components';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 
 import SearchBar from '../SearchBar';
 import Card from './Card';
 import Pagination from '../Pagination';
 import StyledListMuseum from '../StyledListMuseum';
+import { mediaQueries } from '../../theme/index.js';
 
 const MuseumWrapper = styled.div`
   width: 60%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  ${mediaQueries('m')`
+    width: 65%;
+  `};
 `;
 
 const Museum = ({
@@ -36,6 +40,7 @@ const Museum = ({
       <MuseumWrapper>
         {museums.map((musem) => (
           <Card
+            data-jest='card-museum'
             {...musem.record.fields}
             key={musem.record.id}
             id={musem.record.id}
@@ -43,14 +48,14 @@ const Museum = ({
         ))}
       </MuseumWrapper>
     </StyledListMuseum>
-  <Pagination
-    pageTotal={pageTotal}
-    currentPage={currentPage}
-    handleClickPrev={handleClickPrev}
-    handleClickNext={handleClickNext}
-    handleClickLast={handleClickLast}
-    handleClickFirst={handleClickFirst}
-  />
+    <Pagination
+      pageTotal={pageTotal}
+      currentPage={currentPage}
+      handleClickPrev={handleClickPrev}
+      handleClickNext={handleClickNext}
+      handleClickLast={handleClickLast}
+      handleClickFirst={handleClickFirst}
+    />
   </>
 );
 

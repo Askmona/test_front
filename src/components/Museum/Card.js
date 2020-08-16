@@ -47,7 +47,7 @@ const MuseumCity = styled.p`
 `;
 
 const MuseumTitle = styled.p`
-  color: #000
+  color: #282828;
 `;
 
 const StyledTitleHover = styled.p`
@@ -56,7 +56,7 @@ const StyledTitleHover = styled.p`
   font-weight: 900;
   color: #4054B2;
   position: absolute;
-  bottom: 20px;
+  bottom: 15px;
   transition: .3s;
 `;
 
