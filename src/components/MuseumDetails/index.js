@@ -11,6 +11,7 @@ import StyledLineWrapper from '../StyledLineWrapper';
 import Error from '../Error';
 import Maps from '../Maps';
 import { mediaQueries } from '../../theme/index.js';
+import { checkIfLink, checkIfGoodLink } from 'utils/function';
 
 const Text = styled.p`
   color: #535353;
@@ -20,6 +21,25 @@ const Text = styled.p`
   width: 55%;
   line-height: 2rem;
   margin: 1rem auto;
+  ${mediaQueries('m')`
+    font-size: 1.2em;
+  `};
+`;
+
+const StyledLink = styled.a`
+  color: #535353;
+  text-align: center;
+  text-decoration: underline;
+  margin: .2rem auto;
+  font-size: 1.4em;
+  width: 55%;
+  line-height: 2rem;
+  margin: 1rem auto;
+  transition: .3s;
+  :hover {
+    color: #000;
+    transition: .3s;
+  }
   ${mediaQueries('m')`
     font-size: 1.2em;
   `};
@@ -103,7 +123,6 @@ const MuseumDetails = () => {
 
   // Je supprime de mon tableau, les retours de l'API avec des valeurs de total à null
   const attendanceFiltered = attendanceArr.filter(item => item.total !== null);
-
   const data = {
     labels: attendanceFiltered.map(item => item.date),
     datasets: [
@@ -149,6 +168,8 @@ const MuseumDetails = () => {
           Fax: {museum.fax ? museum.fax : 'non renseigné'}
         </Text>
         {museum.sitweb &&
+          checkIfLink(museum.sitweb) ?
+          <StyledLink href={checkIfGoodLink(museum.sitweb)} target="_blank">Visitez leur site web</StyledLink> :
           <Text>{museum.sitweb}</Text>}
         {museum.fermeture_annuelle &&
           <StyledBold>

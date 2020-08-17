@@ -66,7 +66,7 @@ const StyledIcon = styled.img`
 `;
 
 const Card = ({ nom_du_musee, ville, id }) => {
-  const titleEl = useRef(null)
+  const titleEl = useRef(null);
   const displayTitle = () => {
     titleEl.current.style.display = 'block';
     titleEl.current.style.transition = '.3s';

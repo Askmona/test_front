@@ -18,14 +18,13 @@ const StyledTitleImg = styled.h1`
   margin: 2rem auto 0;
   ${mediaQueries('m')`
     width: 90%;
-    font-size: 2.2em;
+    font-size: 3.2em;
   `};
   ${mediaQueries('s')`
-    font-size: 1.6em;
-    line-height: 1.8;
+    font-size: 2.2em;
   `};
   ${mediaQueries('xs')`
-    font-size: 1.4em;
+    font-size: 2em;
   `}; 
 `;
 

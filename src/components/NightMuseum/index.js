@@ -24,7 +24,6 @@ const NightMuseum = () => {
     // Fetch the number of events by Region
     axios.get(`https://data.culture.gouv.fr/api/v2/catalog/datasets/liste-et-localisation-des-musees-de-france/aggregates?select=count(*)%20as%20count&group_by=region&order_by=count(region)desc`)
     .then(response => {
-      console.log(response.data)
       setCountByRegion(response.data.aggregations);
       setLoadingRegion(false);
     })
@@ -34,7 +33,6 @@ const NightMuseum = () => {
     // Fetch the number of events by department
     axios.get(`https://data.culture.gouv.fr/api/v2/catalog/datasets/liste-et-localisation-des-musees-de-france/aggregates?select=count(*)%20as%20count&group_by=departement&order_by=count(departement)desc&limit=${limitDepartment}`)
     .then(response => {
-      console.log(response.data)
       setCountByDepartment(response.data.aggregations);
       setLoadingDepartment(false);
     })
@@ -44,7 +42,6 @@ const NightMuseum = () => {
     // Fetch the number of events by city
     axios.get(`https://data.culture.gouv.fr/api/v2/catalog/datasets/liste-et-localisation-des-musees-de-france/aggregates?select=count(*)%20as%20count&group_by=ville&order_by=count(ville)desc&limit=${limitCity}`)
     .then(response => {
-      console.log(response.data)
       setCountByCity(response.data.aggregations);
       setLoadingCity(false);
     })

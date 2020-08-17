@@ -20,9 +20,12 @@ const StyledTextTitle = styled.h1`
   bottom: 0;
   width: 100%;
   text-align: center;
-  letter-spacing: 5.1px;
+  letter-spacing: 6.8px;
   transform: translateY(50%);
   color: #FFF;
+  ${mediaQueries('m')`
+    letter-spacing: 5.2px;
+  `};
   ${mediaQueries('s')`
     font-size: 4em;
     bottom: -150px
@@ -81,22 +84,22 @@ const StyledSvg = styled.svg`
 
 const Home = () => (
   <>
-  <Parallax 
-    blur={{min: -15, max: 15}}
-    bgImage={require('./zoom.jpg')}
-    bgImageAlt="Thomas Couture - Les Romains de la décadence"
-    strength={200}
-  >
-    <StyledZoomWrapper>
-      <div>
-        <StyledTextTitle>Liste des musées</StyledTextTitle>
-        <StyledTextContent>Les plus beaux musées Français référencés par villes</StyledTextContent>
-      </div>
-      <StyledSvg xmlns="http://www.w3.org/2000/svg" width="14" height="20" fill="#FFF">
-        <path d="M7.5 0a.5.5 0 01.5.5v16.17l4.44-4.45a.5.5 0 01.71 0l.7.71a.5.5 0 010 .71l-6.13 6.14a.75.75 0 01-.53.22h-.38a.77.77 0 01-.53-.22L.15 13.64a.5.5 0 010-.71l.7-.71a.49.49 0 01.7 0L6 16.67V.5a.5.5 0 01.5-.5z"></path>
-      </StyledSvg>
-    </StyledZoomWrapper>
-  </Parallax>
+    <Parallax 
+      blur={{min: -15, max: 15}}
+      bgImage={require('./zoom.jpg')}
+      bgImageAlt="Thomas Couture - Les Romains de la décadence"
+      strength={200}
+    >
+      <StyledZoomWrapper>
+        <div>
+          <StyledTextTitle>Liste des musées</StyledTextTitle>
+          <StyledTextContent>Les plus beaux musées Français référencés par villes</StyledTextContent>
+        </div>
+        <StyledSvg xmlns="http://www.w3.org/2000/svg" width="14" height="20" fill="#FFF">
+          <path d="M7.5 0a.5.5 0 01.5.5v16.17l4.44-4.45a.5.5 0 01.71 0l.7.71a.5.5 0 010 .71l-6.13 6.14a.75.75 0 01-.53.22h-.38a.77.77 0 01-.53-.22L.15 13.64a.5.5 0 010-.71l.7-.71a.49.49 0 01.7 0L6 16.67V.5a.5.5 0 01.5-.5z"></path>
+        </StyledSvg>
+      </StyledZoomWrapper>
+    </Parallax>
   </>
 );
 

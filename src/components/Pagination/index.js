@@ -55,15 +55,32 @@ const Pagination = ({
   }
   return (
     <PaginationWrapper>
-      <LinkPaginate data-jest='paginate-first' onClick={handleClickFirst}>{page !== 1 ? '1' : ''}</LinkPaginate>
-      <LinkPaginate data-jest='paginate-prev' onClick={handleClickPrev}>{page !== 1 ? '<' : ''}</LinkPaginate>
+      <LinkPaginate
+        data-jest='paginate-first'
+        onClick={handleClickFirst}
+      >
+        {page !== 1 ? '1' : ''}
+      </LinkPaginate>
+      <LinkPaginate data-jest='paginate-prev' onClick={handleClickPrev}>
+        {page !== 1 ? '<' : ''}
+      </LinkPaginate>
       {page >= 2 &&
-      <LinkPaginate data-jest='paginate-prev2' onClick={handleClickPrev}>{page - 1}</LinkPaginate>}
-      <CurrentNum data-jest='paginate-current'>{page}</CurrentNum>
+      <LinkPaginate data-jest='paginate-prev2' onClick={handleClickPrev}>
+        {page - 1}
+      </LinkPaginate>}
+      <CurrentNum data-jest='paginate-current'>
+        {page}
+      </CurrentNum>
       {!(page >= lastPage) &&
-      <LinkPaginate data-jest='paginate-next' onClick={handleClickNext}>{page + 1}</LinkPaginate>}
-      <LinkPaginate data-jest='paginate-next2' onClick={handleClickNext}>{page !== lastPage ? '>' : ''}</LinkPaginate>
-      <LinkPaginate data-jest='paginate-last' onClick={handleClickLast}>{page !== lastPage ? lastPage : ''}</LinkPaginate>
+        <LinkPaginate data-jest='paginate-next' onClick={handleClickNext}>
+          {page + 1}
+        </LinkPaginate>}
+      <LinkPaginate data-jest='paginate-next2' onClick={handleClickNext}>
+        {page !== lastPage ? '>' : ''}
+      </LinkPaginate>
+      <LinkPaginate data-jest='paginate-last' onClick={handleClickLast}>
+        {page !== lastPage ? lastPage : ''}
+      </LinkPaginate>
     </PaginationWrapper>
   );
 }

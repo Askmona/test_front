@@ -24,7 +24,7 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   margin: auto;
-`
+`;
 
 const Box = styled.div`
   display: flex;
@@ -34,7 +34,7 @@ const Box = styled.div`
   flex-direction: column;
   white-space: pre-line;
   width: 100%;
-`
+`;
 
 const App = () => {
   const [museums, setMuseums] = useState([]);
@@ -118,7 +118,7 @@ const App = () => {
                   <Header />
                   <Home />
                   {loading &&
-                  <Loader />}
+                    <Loader />}
                   {!loading &&
                   <Museum
                     museums={museums}

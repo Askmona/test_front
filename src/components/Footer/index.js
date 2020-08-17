@@ -7,14 +7,15 @@ const StyledFooter = styled.footer`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   width: 100%;
   text-align: center;
   height: 50px;
   background: #2e2e7a;
   color: #FFF;
+  margin-top: 2rem;
   ${mediaQueries('s')`
-    font-size: 1.2em;
+    font-size: 1em;
   `};
 `;
 
